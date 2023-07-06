@@ -1,0 +1,186 @@
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎使用课程管理系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎使用课程管理系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <style>
+        body {
+            background-image: url("bg.png");
+            background-size: cover;
+        }
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width:400px;
+            margin:0 auto;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="centered-form">
+    <div class="ui container">
+        <div class="ui segment">
+            <h2 class="ui center aligned header m-text m-teal">用户注册</h2>
+            <form class="ui form" method="post" action="/RegisterServlet">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="username" class="tooltip" placeholder="学号、教职工号">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="tag icon"></i>
+                        <input type="text" name="nickname" class="tooltip" placeholder="姓名" data-content="不能为空">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" class="tooltip" placeholder="密码"
+                               data-content="长度必须为8-16个字符">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="repeatpassword" class="tooltip" placeholder="确认密码">
+                    </div>
+                </div>
+                <div class="field container">
+                    <div class="ui two column grid">
+                        <div class="ui column">
+                            <div class="ui left icon input">
+                                <i class="check icon"></i>
+                                <input type="text" name="checkcode" class="tooltip" placeholder="验证码" data-content="请填写验证码">
+                            </div>
+                        </div>
+                        <div class="ui column">
+                            <!-- 动态生成的验证码显示在这里 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="loginType" value="teacher" checked>
+                                    <label><i class="user icon"></i> 教师登录</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="loginType" value="student">
+                                    <label><i class="student icon"></i> 学生登录</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="register-btn" class="ui fluid large teal button" type="button">注 册</button>
+            </form>
+        </div>
+        <div class="ui container m-margin-top-small">
+            <div class="ui bottom attached warning message container center aligned">
+                <i class="icon help"></i>
+                已经有账号了？ <a href="#" th:href="@{/login}">这里登录</a>。
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.ui.form').form({
+        // inline: true,
+        fields: {
+            password: {
+                identifier: 'password',
+                rules: [
+                    {
+                        type: 'regExp',  //
+                        value: /^\w{8,16}$/i,
+                        prompt: '密码不合法，请重新输入'
+                    }
+                ]
+            },
+            repeatpassword: {
+                identifier: 'repeatpassword',
+                rules: [
+                    {
+                        type: 'match[password]',
+                        prompt: '密码不匹配'
+                    }
+                ]
+            },
+            nickname: {
+                identifier: 'nickname',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '昵称不能为空'
+                    }
+                ]
+            },
+            username: {
+                identifier: 'username',
+                rules: [
+                    {
+                        type: 'regExp',
+                        value: /^[a-zA-Z]\w{5,15}$/i,
+                        prompt: '用户名不合法'
+                    },
+                    {
+                        type: 'checkUsername',
+                        prompt: '用户名已经被注册 <a href=[[@{/login}]]>点击登录?</a> '
+                    }
+                ]
+            },
+            email: {
+                identifier: 'email',
+                rules: [
+                    {
+                        type: 'email',
+                        prompt: '请输入合法的邮箱'
+                    },
+                    {
+                        type: 'checkEmail',
+                        prompt: '邮箱已经注册， <a href=[[@{/login}]]>点击登录?</a> '
+                    }
+                ]
+            },
+            checkcode: {
+                identifier: 'checkcode',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请填写验证码'
+                    },
+                    {
+                        type: 'checkCode',
+                        prompt: '验证码填写错误'
+                    }
+                ]
+            }
+        }
+    })
+</script>
+</body>
+</html>
