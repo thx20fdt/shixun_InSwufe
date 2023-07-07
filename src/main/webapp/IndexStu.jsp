@@ -66,6 +66,7 @@
       <!-- 这是右边的列表-->
       <div class="thirteen wide column">
         <div class="ui top attached segment">
+          <h3 class="ui black header">我的课程信息</h3>
           <div class="ui middle aligned four column grid">
             <div class="column">
             </div>
