@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
                 if (userRole.equals("teacher")) {
                     request.getRequestDispatcher("Teacher.jsp").forward(request, response);
                 } else if (userRole.equals("student")) {
-                    request.getRequestDispatcher("IndexStu.jsp").forward(request, response);
+                    request.getRequestDispatcher("MyCourse").forward(request, response);
                 }
             } else {
                 request.setAttribute("msg", "用户ID或密码错误!");

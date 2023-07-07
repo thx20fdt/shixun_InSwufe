@@ -6,14 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>首页</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-  <link rel="stylesheet" href="me.css" >
+  <link rel="stylesheet" href="me.css">
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini">
@@ -67,40 +68,26 @@
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
             <div class="column">
-              <h3 class="ui black header">我学的课</h3>
             </div>
           </div>
         </div>
         <div class="ui attached segment">
           <div class="ui cards">
-            <div class="card">
-              <a href="https://example.com/course1">
-                <div class="image">
-                  <img src="https://example.com/course-image1.jpg">
-                </div>
-              </a>
-              <div class="content">
-                <a href="www.swufe.edu.cn" class="header" style="font-size: 1.2em; color: black;">
-                  课程名1
+            <c:forEach var="course" items="${courses}">
+              <div class="card">
+                <a href="CourseDetail" name="${course.CID}">
+                  <div class="image">
+                    <img src="">
+                  </div>
                 </a>
-                <div class="meta">教师1</div>
-                <div class="description">上课时间1</div>
-              </div>
-            </div>
-            <div class="card">
-              <a href="https://example.com/course2">
-                <div class="image">
-                  <img src="https://example.com/course-image2.jpg">
+                <div class="content">
+                  <a href="CourseDetail" class="header" style="font-size: 1.2em; color: black;" name="${course.CID}">
+                      ${course.CNAME}
+                  </a>
+                  <div class="meta">${course.TID}</div>
                 </div>
-              </a>
-              <div class="content">
-                <a href="https://example.com/course2" class="header" style="font-size: 1.2em; color: black;">
-                  课程名2
-                </a>
-                <div class="meta">教师2</div>
-                <div class="description">上课时间2</div>
               </div>
-            </div>
+            </c:forEach>
             <!-- 更多课程卡片 -->
           </div>
         </div>
