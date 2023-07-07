@@ -1,0 +1,102 @@
+.m-padded-tb-mini{
+    padding-top:0.2em !important;
+    padding-bottom:0.2em !important;
+}
+.m-padded-tb-tiny{
+    padding-top:0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+.m-padded-tb-small{
+    padding-top:0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+.m-padded-tb{
+    padding-top:1em !important;
+    padding-bottom: 1em !important;
+}
+.m-padded-tb-large{
+    padding-top:2em !important;
+    padding-bottom: 2em !important;
+}
+.m-padded-tb-big{
+    padding-top:3em !important;
+    padding-bottom: 3em !important;
+}
+.m-padded-tb-huge{
+    padding-top:4em !important;
+    padding-bottom: 4em !important;
+}
+.m-padded-tb-massive{
+    padding-top:5em !important;
+    padding-bottom: 5em !important;
+}
+.m-text-thin{
+    font-weight:200 !important;
+}
+.m-text-spaced{
+    letter-spacing: 1px !important;
+}
+.m-text-lined{
+    line-height: 1.8;
+}
+.m-opacity-mini{
+    opacity: 0.6 !important;
+}
+.m-opacity-max{
+    opacity: 1.2 !important;
+}
+​
+.m-inline-block{
+    display:inline-block !important;
+}
+​
+.ui.vertical.fluid.tabular.menu .item:hover {
+    background-color: #2185d0;
+    color: white;
+}
+​
+.custom-icon {
+    margin-left: 20px;
+}
+​
+.header:hover {
+    color: blue !important;
+}
+​
+html, body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+}
+​
+.m-padded-tb-larger {
+    flex-grow: 1;
+    padding-bottom: 0 !important;
+}
+​
+.m-content {
+    margin-top: 20px !important;  /* 根据你的需要调整这个值 */
+}
+​
+.ui.list .item {
+    margin-bottom: 15px !important;
+}
+​
+.info-text {
+    margin-top: 15px !important;
+}
+​
+.styled-info {
+    margin-bottom: 15px !important;
+}
+​
+.styled-link {
+    display: block;
+    margin-top: 5px !important;
+}
+​
+.ui.medium.black.header {
+    margin-bottom: 5px !important;
+    margin-bottom: 5px !important;
+}
