@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="ClassManagement_T4@rm-2vctxb20ce77uelfy2o.mssql.cn-chengdu.rds.aliyuncs.com" uuid="2c726270-ae05-4314-be27-99d5f5272694">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://rm-2vctxb20ce77uelfy2o.mssql.cn-chengdu.rds.aliyuncs.com\rm-2vctxb20ce77uelfy:3433;database=ClassManagement_T4</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
