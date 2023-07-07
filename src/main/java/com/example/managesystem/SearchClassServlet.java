@@ -1,6 +1,7 @@
 package com.example.managesystem;
 
-import DB.DBUtil;
+
+import com.example.managesystem.db.DBUtil;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

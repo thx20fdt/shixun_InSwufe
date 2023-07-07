@@ -1,5 +1,6 @@
 package com.example.managesystem;
-import DB.DBUtil;
+
+import com.example.managesystem.db.DBUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

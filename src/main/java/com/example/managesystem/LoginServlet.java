@@ -1,6 +1,7 @@
 package com.example.managesystem;
 
-import DB.DBUtil;
+
+import com.example.managesystem.db.DBUtil;
 
 import java.io.*;
 import javax.servlet.*;
