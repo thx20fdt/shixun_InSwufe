@@ -103,7 +103,7 @@
         <div class="ui container m-margin-top-small">
             <div class="ui bottom attached warning message container center aligned">
                 <i class="icon help"></i>
-                已经有账号了？ <a href="#" th:href="@{/login}">这里登录</a>。
+                已经有账号了？ <a href="Login.jsp" >这里登录</a>。
             </div>
         </div>
     </div>
