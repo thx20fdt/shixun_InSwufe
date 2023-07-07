@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>首页</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-  <link rel="stylesheet" href="./css/me.css">
+  <link rel="stylesheet" href="me.css" >
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini">
@@ -23,7 +23,7 @@
       <a href="IndexStu.jsp" class="item"><i class="home icon"></i>首页</a>
       <a href="#" class="item"><i class="users icon"></i>我的课程</a>
       <a href="#" class="item"><i class="tags icon"></i>标签</a>
-      <a href="PersonnelInformationStu.html" class="item"><i class="id card icon"></i>个人信息</a>
+      <a href="PersonnelInformationStu.jsp" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
           <input type="text" placeholder="搜索……">
