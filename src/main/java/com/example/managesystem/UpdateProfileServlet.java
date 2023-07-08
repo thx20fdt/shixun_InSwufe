@@ -33,10 +33,7 @@ public class UpdateProfileServlet extends HttpServlet {
         if (success) {
             // 更新成功，获取最新的student对象
             Student updatedStudent = getUpdatedStudent(studentSid);
-            // 设置student对象的属性值
-            updatedStudent.setGender(gender.equals("男"));
-            updatedStudent.setPhone(phone);
-            updatedStudent.setMajor(major);
+
 
             session.setAttribute("student", updatedStudent); // 将更新后的student对象设置到request中
             session.setAttribute("updateSuccess", true); // 设置updateSuccess为true
@@ -47,6 +44,7 @@ public class UpdateProfileServlet extends HttpServlet {
         }
     }
 
+    // 根据实际情况实现数据库更新操作
     // 根据实际情况实现数据库更新操作
     private boolean updateProfile(String gender, String phone, String major, String studentSid) {
         // 在此处编写更新数据库的代码
@@ -66,20 +64,20 @@ public class UpdateProfileServlet extends HttpServlet {
             }
 
             // 准备SQL语句
-            String sql = "UPDATE Student SET GENDER = ?";
+            StringBuilder sqlBuilder = new StringBuilder("UPDATE Student SET GENDER = ?");
             boolean hasChanges = true; // 标记是否有需要更新的字段
 
             // 添加非空字段到SQL语句和参数中
             if (phone != null && !phone.isEmpty()) {
-                sql += ", PHONE = ?";
+                sqlBuilder.append(", PHONE = ?");
                 hasChanges = true;
             }
             if (major != null && !major.isEmpty()) {
-                sql += ", MAJOR = ?";
+                sqlBuilder.append(", MAJOR = ?");
                 hasChanges = true;
             }
-            sql += " WHERE SID = ?";
-            statement = connection.prepareStatement(sql);
+            sqlBuilder.append(" WHERE SID = ?");
+            statement = connection.prepareStatement(sqlBuilder.toString());
 
             // 设置参数值
             int parameterIndex = 1;
@@ -107,6 +105,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
         return success;
     }
+
 
     // 查询数据库中是否存在相同的电话号码
     private String getExistingPhone(Connection connection, String phone) throws SQLException {
