@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: FX506H
   Date: 2023/7/8
-  Time: 10:34
+  Time: 15:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,7 +12,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的课程</title>
+  <title>选择课程</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="me.css">
 </head>
@@ -73,60 +73,75 @@
           </div>
         </div>
         <div class="ui attached segment">
-          <div class="ui grid">
-            <div class="six wide column">
-              <form action="SearchClassByCNAMEServlet" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="课程名称" name="CNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    查询
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div class="six wide column" style="margin-left: 100px; margin-right: 20px;">
-              <form action="SearchClassByTNAME" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="任课教师" name="TNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    查询
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="ui grid">
-            <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-              <h4 class="ui dividing header">已选课程信息</h4>
-            </div>
-          </div>
-          <table class="ui celled table">
-            <thead>
-            <tr>
-              <th>课程名称</th>
-              <th>任课教师</th>
-              <th>上课时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="course" items="${cs}">
+          <form action="AddIntoMyClassServlet" class="ui form" method="post">
+            <table class="ui celled table">
+              <thead>
               <tr>
-                <td>${course.CNAME}</td>
-                <td>${course.TNAME}</td>
-                <td>${course.CLASSTIME}</td>
+                <th>课程名称</th>
+                <th>任课教师</th>
+                <th>上课时间</th>
+                <th>选择课程</th>
               </tr>
-            </c:forEach>
-            <!-- 更多课程 -->
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+              <c:forEach var="course" items="${courses}">
+                <tr>
+                  <td>${course.CNAME}</td>
+                  <td>${course.TNAME}</td>
+                  <td>${course.CLASSTIME}</td>
+                  <td><input type="checkbox" name="CID" value="${course.CID}"></td>
+                </tr>
+              </c:forEach>
+              <!-- 更多课程 -->
+              </tbody>
+            </table>
+            <button class="ui green button submit-button" type="submit">
+              <i class="check icon"></i>
+              提交选课
+            </button>
+          </form>
         </div>
       </div>
       <!-- 这是右边部分结束  -->
     </div>
   </div>
 </div>
+<!--弹出提示框-->
+
+<!-- 选课成功提示框 -->
+<div class="ui small modal" id="success-modal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content">
+    <p>选课成功！</p>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<!-- 没有选择任何课程提示框 -->
+<div class="ui small modal" id="no-selection-modal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content">
+    <p>还没有选择任何一门课程！</p>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+
+
 
 
 <!-- foot content -->
@@ -140,4 +155,26 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+  $('form').on('submit', function(event) {
+    // 阻止表单的默认提交行为
+    event.preventDefault();
+
+    if ($('input[type="checkbox"]:checked').length > 0) {
+      // 如果有课程被选中，显示"选课成功！"的提示框
+      $('#success-modal')
+              .modal({
+                closable: false,
+                onApprove: function() {
+                  // 在点击"确定"后，提交表单
+                  event.target.submit();
+                }
+              })
+              .modal('show');
+    } else {
+      // 如果没有课程被选中，显示"还没有选择任何一门课程！"的提示框
+      $('#no-selection-modal').modal('show');
+    }
+  });
+</script>
 </html>

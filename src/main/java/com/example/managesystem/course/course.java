@@ -23,6 +23,12 @@ public class course {
         return TID;
     }
 
+    public String getTNAME(){return TNAME;}
+
+    public String getCLASSTIME() {
+        return CLASSTIME;
+    }
+
     public void setCID(String CID){
         this.CID = CID;
     }
