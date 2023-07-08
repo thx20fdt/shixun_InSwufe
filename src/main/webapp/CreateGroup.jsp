@@ -1,11 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: lenovo
+  Date: 2023/7/8
+  Time: 22:25
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的课程</title>
+  <title>创建你的小组</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="./me.css">
 </head>
@@ -63,67 +69,78 @@
           </div>
         </div>
         <div class="ui attached segment">
-          <div class="ui grid">
-            <div class="six wide column">
-              <form action="SearchGroupServlet" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="课程名称" name="CNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    查询
-                  </button>
-                </div>
-              </form>
+          <form id="groupForm" class="ui form">
+            <div class="field">
+              <label>小组成员学号</label>
+              <input type="text" id="memberId" name="memberName" placeholder="输入小组成员学号">
             </div>
-          </div>
-          <div class="ui grid">
-            <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-              <h4 class="ui dividing header">已选课程结果</h4>
+            <div class="field">
+              <label>小组成员电话</label>
+              <input type="text" id="memberPhone" name="memberId" placeholder="输入该成员对应电话">
             </div>
-          </div>
-          <table class="ui celled table">
-            <thead>
-            <tr>
-              <th>课程名称</th>
-              <th>活动名称</th>
-              <th>活动ID</th>
-              <th>我的小组</th>
-            </tr>
-            <c:forEach var="score" items="${sessionScope.activitylist}">
-              <tr>
-                <td>${score.CNAME}</td>
-                <td>${score.ANAME}</td>
-                <td>${score.AID}</td>
-                <td>
-                  <a href="CreateGroup.jsp?AID=${score.AID}" class="item"><i class="user plus icon"></i>创建小组</a>
-              </tr>
-            </c:forEach>
-            </thead>
-            <tbody>
-            <!-- 更多课程 -->
-            </tbody>
-          </table>
+            <div class="field">
+              <%
+                String aid = request.getParameter("AID");
+              %>
+              <input type="hidden" name="AID" value="<%= aid %>">
+            </div>
+            <button class="ui blue button" type="button" id="submitButton">提交</button>
+          </form>
         </div>
       </div>
+      <!-- 这是右边部分结束  -->
     </div>
-    <!-- 这是右边部分结束  -->
   </div>
 </div>
+
+<!--提示框弹出 -->
+<div class="ui small modal" id="alertModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content" id="alertContent">
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
 </div>
-
-
-
-
 
 <!-- foot content -->
 <footer class="ui inverted vertical segment">
   <div class="ui center aligned container">
     <div class="ui inverted section divider">
-      <p class="m-text-thin m-opacity-mini">Copyright © 2022-2023 Designed by T4_Group</p>
+      <p class="m-text-thin m-opacity-mini">Designed by T4_Group</p>
     </div>
   </div>
 </footer>
 </body>
-<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.js"></script>
+<script>
+  $('#submitButton').click(function() {
+    var memberName = $('#memberName').val();
+    var memberId = $('#memberId').val();
+    if (memberName == "" || memberId == "") {
+      // 如果输入框中没有任何内容就点击了提交按钮，弹出提示框
+      $('#alertContent').text('请输入小组成员姓名和学号！');
+      $('#alertModal').modal('show');
+    } else {
+      // 提交表单数据到Servlet
+      $.post("CreateGroupServlet", $("#groupForm").serialize())
+              .done(function(data) {
+                if (data.success) {
+                  // 创建成功，显示成功提示框
+                  $('#alertContent').text(data.message);
+                } else {
+                  // 创建失败，显示失败提示框
+                  $('#alertContent').text(data.message);
+                }
+                $('#alertModal').modal('show');
+              });
+    }
+  });
+</script>
 </html>

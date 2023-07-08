@@ -5,6 +5,9 @@ public class Score {
     private String ANAME;
     private double SCORE;
 
+    private String AID;
+
+
     public String getCNAME() {
         return CNAME;
     }
@@ -27,5 +30,13 @@ public class Score {
 
     public void setSCORE(double SCORE) {
         this.SCORE = SCORE;
+    }
+
+    public String getAID() {
+        return AID;
+    }
+
+    public void setAID(String AID) {
+        this.AID = AID;
     }
 }

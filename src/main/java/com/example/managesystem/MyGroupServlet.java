@@ -23,8 +23,9 @@ public class MyGroupServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String studentSid = (String) session.getAttribute("id");
 
-        List<Score> scorelist = getStudentActivity(studentSid); // 从数据库中获取学生的成绩列表
-        session.setAttribute("scoreList", scorelist);
+        List<Score> activitylist = getStudentActivity(studentSid); // 从数据库中获取学生的成绩列表
+
+        session.setAttribute("activitylist", activitylist);
 
         request.getRequestDispatcher("MyGroup.jsp").forward(request, response); // 转发到 MyScores.jsp 显示成绩页面
     }
@@ -35,17 +36,17 @@ public class MyGroupServlet extends HttpServlet {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<Score> scorelist = new ArrayList<>();
+        List<Score> activitylist = new ArrayList<>();
 
         try {
             // 获取数据库连接
             connection = DBUtil.getConnection();
 
             // 准备SQL语句
-            String sql = "SELECT c.CNAME, a.ANAME " +
+            String sql = "SELECT c.CNAME, a.ANAME , a.AID " +
                     "FROM Student_Class sc " +
                     "JOIN Class c ON sc.CID = c.CID " +
-                    "JOIN Activity a ON c.CID = a.CID"+
+                    "JOIN Activity a ON c.CID = a.CID " +
                     "WHERE sc.SID = ?";
             statement = connection.prepareStatement(sql);
 
@@ -60,8 +61,8 @@ public class MyGroupServlet extends HttpServlet {
                 Score score = new Score();
                 score.setCNAME(resultSet.getString("CNAME"));
                 score.setANAME(resultSet.getString("ANAME"));
-
-                scorelist.add(score);
+                score.setAID(resultSet.getString("AID"));
+                activitylist.add(score);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +73,7 @@ public class MyGroupServlet extends HttpServlet {
             DBUtil.closeConnection(connection);
         }
 
-        return scorelist;
+        return activitylist;
     }
 
 }
