@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +21,10 @@
   <div class="ui container">
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
-      <a href="/MyCourse" class="item"><i class="home icon"></i>首页</a>
-      <a href="StuClass.jsp" class="item"><i class="users icon"></i>我的课程</a>
-      <a href="#" class="item"><i class="tags icon"></i>标签</a>
-      <a href="PersonnelInformationStu.jsp" class="item"><i class="id card icon"></i>个人信息</a>
+      <a href="MyCourse" class="item"><i class="home icon"></i>首页</a>
+      <a href="MyCourseInfo" class="item"><i class="users icon"></i>我的课程</a>
+      <a href="#" class="item"><i class="clipboard icon"></i>查看成绩</a>
+      <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
           <input type="text" placeholder="搜索……">
@@ -73,97 +74,66 @@
         </div>
         <div class="ui attached segment">
           <div class="ui grid">
-            <div class="six wide column">
-              <div class="ui fluid input">
-                <input type="text" placeholder="课程名称" id="cname">
-              </div>
-            </div>
-            <div class="six wide column">
-              <div class="ui fluid input">
-                <input type="text" placeholder="任课教师" id="tname">
-              </div>
+            <div class="four wide column">
+              <form action="#" class="ui form">
+                <div class="ui fluid input">
+                  <input type="text" placeholder="课程名称">
+                </div>
+              </form>
             </div>
             <div class="four wide column">
-              <button class="ui blue button" type="submit"id="search">
-                <i class="search icon"></i>
-                查询
-              </button>
+              <form action="#" class="ui form">
+                <button class="ui blue button" style="margin-left:10px;" type="submit">
+                  <i class="search icon"></i>
+                  查询
+                </button>
+              </form>
+            </div>
+            <div class="four wide column">
+              <form action="#" class="ui form">
+                <div class="ui fluid input">
+                  <input type="text" placeholder="任课教师">
+                </div>
+              </form>
+            </div>
+            <div class="four wide column">
+              <form action="#" class="ui form">
+                <button class="ui blue button" style="margin-left:10px;" type="submit">
+                  <i class="search icon"></i>
+                  查询
+                </button>
+              </form>
             </div>
           </div>
           <div class="ui grid">
-            <div class="column">
-              <button class="ui green button">
-                <i class="plus icon"></i>
-                添加新的课程
-              </button>
+            <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
+              <h4 class="ui dividing header">已选课程信息</h4>
             </div>
           </div>
           <table class="ui celled table">
             <thead>
             <tr>
-              <th>序号</th>
               <th>课程名称</th>
               <th>任课教师</th>
               <th>上课时间</th>
             </tr>
+            <c:forEach var="course" items="${cs}">
+              <tr>
+                <td>${course.CNAME}</td>
+                <td>${course.TNAME}</td>
+                <td>${course.CLASSTIME}</td>
+              </tr>
+            </c:forEach>
             </thead>
             <tbody>
-            <tr>
-              <td>1</td>
-              <td>课程1</td>
-              <td>教师1</td>
-              <td>时间1</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>课程2</td>
-              <td>教师2</td>
-              <td>时间2</td>
-            </tr>
+
+
             <!-- 更多课程 -->
             </tbody>
           </table>
         </div>
       </div>
       <!-- 这是右边部分结束  -->
-    </div>
-  </div>
-</div>
-<!--弹出的下拉列表框-->
-<div class="ui small modal">
-  <i class="close icon"></i>
-  <div class="header">
-    添加课程
-  </div>
-  <div class="content">
-    <div class="ui form">
-      <div class="field">
-        <label>授课教师</label>
-        <select class="ui dropdown">
-          <option value="">选择教师</option>
-          <option value="1">教师1</option>
-          <option value="2">教师2</option>
-          <!-- 更多选项 -->
-        </select>
-      </div>
-      <div class="field">
-        <label>课程名称</label>
-        <select class="ui dropdown">
-          <option value="">选择课程</option>
-          <option value="1">课程1</option>
-          <option value="2">课程2</option>
-          <!-- 更多选项 -->
-        </select>
-      </div>
-    </div>
-  </div>
-  <div class="actions">
-    <div class="ui black deny button">
-      取消
-    </div>
-    <div class="ui positive right labeled icon button">
-      确定
-      <i class="checkmark icon"></i>
     </div>
   </div>
 </div>
@@ -180,20 +150,4 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<script>
-  $('.ui.green.button').click(function() {
-    $('.ui.small.modal').modal('show');
-  });
-</script>
-<script>
-  var searchbutton = document.getElementById("search")
-  searchbutton.addEventListener("click",function (){
-    var cname = document.getElementById("cname").value
-    var tname = document.getElementById("tname").value
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","SearchClassServlet",true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("cname=" + cname + "&tname=" + tname);
-  })
-</script>
 </html>
