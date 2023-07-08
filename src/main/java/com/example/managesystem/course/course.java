@@ -6,14 +6,12 @@ public class course {
     public String TID;
     public String TNAME;
 
-    public course(){
+    public String CLASSTIME;
 
-    };
-    public course(String CID,String CNAME,String TID){
-        this.CID = CID;
-        this.CNAME = CNAME;
-        this.TID = TID;
+    public course() {
+
     }
+
     public String getCID() {
         return CID;
     }
@@ -37,5 +35,9 @@ public class course {
 
     public void setTNAME(String TNAME) {
         this.TNAME = TNAME;
+    }
+
+    public void setCLASSTIME(String CLASSTIME){
+        this.CLASSTIME = CLASSTIME;
     }
 }

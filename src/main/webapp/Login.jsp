@@ -47,14 +47,14 @@
             <div class="inline fields">
               <div class="field">
                 <div class="ui radio checkbox">
-                  <input type="radio" name="user_role" value="teacher" checked>
-                  <label><i class="user icon"></i> 教师登录</label>
+                  <input type="radio" name="user_role" value="student" checked>
+                  <label><i class="user icon"></i> 学生登录</label>
                 </div>
               </div>
               <div class="field">
                 <div class="ui radio checkbox">
-                  <input type="radio" name="user_role" value="student">
-                  <label><i class="student icon"></i> 学生登录</label>
+                  <input type="radio" name="user_role" value="teacher">
+                  <label><i class="student icon"></i> 教师登录</label>
                 </div>
               </div>
             </div>
