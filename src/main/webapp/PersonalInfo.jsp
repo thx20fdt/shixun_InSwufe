@@ -23,8 +23,8 @@
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
       <a href="IndexStu.jsp" class="item"><i class="home icon"></i>首页</a>
-      <a href="#" class="item"><i class="users icon"></i>我的课程</a>
-      <a href="#" class="item"><i class="tags icon"></i>标签</a>
+      <a href="MyCourseInfoServlet" class="item"><i class="users icon"></i>我的课程</a>
+      <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>我的成绩</a>
       <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
