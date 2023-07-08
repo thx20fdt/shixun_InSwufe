@@ -55,7 +55,7 @@
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
             <a class="item">
-              <i class="users icon" style="margin-right: 5px;"></i>小组
+              <i href="MyGroupServlet" class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">
               <i class="pencil alternate icon" style="margin-right: 5px;"></i>笔记

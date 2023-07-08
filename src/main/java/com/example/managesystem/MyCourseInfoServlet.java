@@ -27,7 +27,7 @@ public class MyCourseInfoServlet extends HttpServlet {
         List<course> cs = new ArrayList<>();
         try {
             conn= DBUtil.getConnection();
-            String sql = "SELECT [Class].CNAME,[Teacher].NAME,[Class].CLASSTIME FROM Class,[Student-Class],Teacher WHERE Class.TID = Teacher.TID and Class.CID = [Student-Class].CID AND [Student-Class].SID="+"'"+SID+"'";
+            String sql = "SELECT [Class].CNAME,[Teacher].NAME,[Class].CLASSTIME FROM Class,[Student_Class],Teacher WHERE Class.TID = Teacher.TID and Class.CID = [Student_Class].CID AND [Student_Class].SID="+"'"+SID+"'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){

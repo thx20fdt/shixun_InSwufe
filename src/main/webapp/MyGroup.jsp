@@ -1,13 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: FX506H
-  Date: 2023/7/8
-  Time: 12:04
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,8 +43,8 @@
             <a class="item">
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
-            <a class="item">
-              <i href="MyGroupServlet" class="users icon" style="margin-right: 5px;"></i>小组
+            <a href="MyGroupServlet" class="item">
+              <i class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">
               <i class="pencil alternate icon" style="margin-right: 5px;"></i>笔记
@@ -66,50 +57,61 @@
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
             <div class="column">
-              <h3 class="ui black header">我的成绩</h3>
+              <h3 class="ui black header">我的小组</h3>
             </div>
           </div>
         </div>
-        <div class="six wide column">
-          <form action="SearchScoreServlet" class="ui form" method="post">
-            <div class="ui action input">
-              <input type="text" placeholder="课程名称" name="CNAME">
-              <button class="ui blue button" type="submit">
-                <i class="search icon"></i>
-                查询
-              </button>
+        <div class="ui attached segment">
+          <div class="ui grid">
+            <div class="six wide column">
+              <form action="SearchGroupServlet" class="ui form" method="post">
+                <div class="ui action input">
+                  <input type="text" placeholder="课程名称" name="CNAME">
+                  <button class="ui blue button" type="submit">
+                    <i class="search icon"></i>
+                    查询
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-
-        <div class="ui grid">
-          <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-            <h4 class="ui dividing header">已选课程成绩</h4>
           </div>
-        </div>
-        <table class="ui celled table">
-          <thead>
-          <tr>
-            <th>活动名称</th>
-            <th>活动分数</th>
-          </tr>
-          <c:forEach var="score" items="${sessionScope.scoreList}">
+          <div class="ui grid">
+            <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
+              <h4 class="ui dividing header">已选课程结果</h4>
+            </div>
+          </div>
+          <table class="ui celled table">
+            <thead>
             <tr>
-              <td>${score.ANAME}</td>
-              <td>${score.SCORE}</td>
+              <th>课程名称</th>
+              <th>活动名称</th>
+              <th>我的小组</th>
             </tr>
-          </c:forEach>
-          </thead>
-          <tbody>
-          <!-- 更多课程 -->
-          </tbody>
-        </table>
+            <c:forEach var="score" items="${sessionScope.scorelist}">
+              <tr>
+                <td>${score.CNAME}</td>
+                <td>${score.ANAME}</td>
+                <td>
+                  <a href="CreateGroup.jsp" class="item"><i class="user plus icon"></i>创建小组</a></td>
+              </tr>
+            </c:forEach>
+            </thead>
+            <tbody>
+            <!-- 更多课程 -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <!-- 这是右边部分结束  -->
   </div>
 </div>
 </div>
+
+
+
+
+
 <!-- foot content -->
 <footer class="ui inverted vertical segment">
   <div class="ui center aligned container">

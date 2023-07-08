@@ -24,7 +24,7 @@ public class MyCourseServlet extends HttpServlet {
         List<course> courses = new ArrayList<>();
         try {
             conn= DBUtil.getConnection();
-            String sql = "SELECT [Class].[CID],[Class].[CNAME],[Class].[TID] FROM [Class],[Student-Class] WHERE [Class].[CID] = [Student-Class].[CID] AND [Student-Class].SID="+"'"+SID+"'";
+            String sql = "SELECT [Class].[CID],[Class].[CNAME],[Class].[TID] FROM [Class],[Student_Class] WHERE [Class].[CID] = [Student_Class].[CID] AND [Student_Class].SID="+"'"+SID+"'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
@@ -60,7 +60,7 @@ public class MyCourseServlet extends HttpServlet {
         List<course> courses = new ArrayList<>();
         try {
             conn= DBUtil.getConnection();
-            String sql = "SELECT [Class].[CID],[Class].[CNAME],[Class].[TID] FROM [Class],[Student-Class] WHERE [Class].[CID] = [Student-Class].[CID] AND [Student-Class].SID="+"'"+SID+"'";
+            String sql = "SELECT [Class].[CID],[Class].[CNAME],[Class].[TID] FROM [Class],[Student_Class] WHERE [Class].[CID] = [Student_Class].[CID] AND [Student_Class].SID="+"'"+SID+"'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){

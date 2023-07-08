@@ -53,7 +53,7 @@
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
             <a class="item">
-              <i class="users icon" style="margin-right: 5px;"></i>小组
+              <i href="MyGroupServlet" class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">
               <i class="pencil alternate icon" style="margin-right: 5px;"></i>笔记
@@ -94,7 +94,7 @@
               <th>活动名称</th>
               <th>活动分数</th>
             </tr>
-            <c:forEach var="score" items="${scorelist}">
+            <c:forEach var="score" items="${sessionScope.scorelist}">
               <tr>
                 <td>${score.CNAME}</td>
                 <td>${score.ANAME}</td>
