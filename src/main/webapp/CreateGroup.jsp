@@ -72,17 +72,19 @@
           <form id="groupForm" class="ui form">
             <div class="field">
               <label>小组成员学号</label>
-              <input type="text" id="memberId" name="memberName" placeholder="输入小组成员学号">
+              <input type="text" id="memberId" name="memberId" placeholder="输入小组成员学号">
             </div>
             <div class="field">
               <label>小组成员电话</label>
-              <input type="text" id="memberPhone" name="memberId" placeholder="输入该成员对应电话">
+              <input type="text" id="memberPhone" name="memberPhone" placeholder="输入该成员对应电话">
             </div>
             <div class="field">
               <%
                 String aid = request.getParameter("AID");
+
               %>
-              <input type="hidden" name="AID" value="<%= aid %>">
+
+              <input type="hidden" id="AID" name="AID" value="<%= aid %>">
             </div>
             <button class="ui blue button" type="button" id="submitButton">提交</button>
           </form>
@@ -121,11 +123,13 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.js"></script>
 <script>
   $('#submitButton').click(function() {
-    var memberName = $('#memberName').val();
     var memberId = $('#memberId').val();
-    if (memberName == "" || memberId == "") {
+    var memberPhone = $('#memberPhone').val();
+    var activityId = $('#AID').val(); // 获取AID的值
+
+    if (memberId == "" || memberPhone == "") {
       // 如果输入框中没有任何内容就点击了提交按钮，弹出提示框
-      $('#alertContent').text('请输入小组成员姓名和学号！');
+      $('#alertContent').text('请输入小组成员学号和电话！');
       $('#alertModal').modal('show');
     } else {
       // 提交表单数据到Servlet
