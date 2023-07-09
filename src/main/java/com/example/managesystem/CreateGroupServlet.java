@@ -67,7 +67,7 @@ public class CreateGroupServlet extends HttpServlet {
                             // 设置成功消息并返回给前端
                             response.setContentType("application/json");
                             response.setCharacterEncoding("UTF-8");
-                            response.getWriter().write("{\"success\": true, \"message\": \"小组创建成功\"}");
+                            response.getWriter().write("{\"success\": true, \"message\": \"邀请成员成功\"}");
                         } else {
                             // 操作者本人此活动无小组，生成新的小组号
                             String groupId = generateGroupId(activityId);
@@ -79,7 +79,7 @@ public class CreateGroupServlet extends HttpServlet {
                             // 设置成功消息并返回给前端
                             response.setContentType("application/json");
                             response.setCharacterEncoding("UTF-8");
-                            response.getWriter().write("{\"success\": true, \"message\": \"小组创建成功\"}");
+                            response.getWriter().write("{\"success\": true, \"message\": \"小组创建并邀请成员成功\"}");
                         }
                     }
                 }

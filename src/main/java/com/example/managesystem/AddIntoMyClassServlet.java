@@ -31,18 +31,18 @@ public class AddIntoMyClassServlet extends HttpServlet {
             String sql0;
             ResultSet rs;
             for(String CID :CIDS){
-                sql = "select SID from [Student-Class] where SID="+"'"+SID+"'"+"and CID = "+"'"+CID+"'";
+                sql = "select SID from [Student_Class] where SID="+"'"+SID+"'"+"and CID = "+"'"+CID+"'";
                 rs=stmt.executeQuery(sql);
                 if(rs.next()){
                     rs.close();
                     continue;
                 }
                 rs.close();
-                sql0 = "insert into [Student-Class] values("+"'"+SID+"'"+","+"'"+CID+"'"+")";
+                sql0 = "insert into [Student_Class] values("+"'"+SID+"'"+","+"'"+CID+"'"+")";
                 stmt.executeUpdate(sql0);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        } response.sendRedirect("MyCourseInfoServlet");
     }
 }

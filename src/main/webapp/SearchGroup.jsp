@@ -1,11 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: lenovo
+  Date: 2023/7/9
+  Time: 15:03
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的课程</title>
+  <title>小组信息</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="./me.css">
 </head>
@@ -16,7 +23,7 @@
       <h2 class="ui teal header item">T4_课程管理系统</h2>
       <a href="MyCourse" class="item"><i class="home icon"></i>首页</a>
       <a href="MyCourseInfoServlet" class="item"><i class="users icon"></i>我的课程</a>
-      <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>我的成绩</a>
+      <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>查看成绩</a>
       <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
@@ -27,7 +34,10 @@
     </div>
   </div>
 </nav>
+
 <!--mid content-->
+
+
 <div class="m-padded-tb-larger m-content">
   <div class="ui container">
     <div class="ui grid">
@@ -57,61 +67,49 @@
       <div class="thirteen wide column">
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
-            <div class="column">
-              <h3 class="ui black header">我的小组</h3>
+            <div class="six wide column">
+              <h3 class="ui black header">${requestScope.CNAME}</h3>
             </div>
           </div>
         </div>
         <div class="ui attached segment">
-          <div class="ui grid">
-            <div class="six wide column">
-              <form action="SearchGroupServlet" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="课程名称" name="CNAME" ID="CNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    查询
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="ui grid">
-            <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-              <h4 class="ui dividing header">已选课程结果</h4>
-            </div>
-          </div>
           <table class="ui celled table">
             <thead>
             <tr>
-              <th>课程名称</th>
               <th>活动名称</th>
-              <th>活动ID</th>
-              <th>小组ID</th>
-              <th>操作</th>
+              <th>我的小组</th>
+              <th>小组成员</th>
+              <th>邀请成员</th>
             </tr>
-            <c:forEach var="group" items="${sessionScope.groupList}">
+            </thead>
+            <c:forEach var="group" items="${sessionScope.groupDetailList}" varStatus="status">
               <tr>
-                <td>${group.CNAME}</td>
                 <td>${group.ANAME}</td>
-                <td>${group.AID}</td>
                 <td>${group.GID}</td>
+                <td>
+                  <c:choose>
+                    <c:when test="${empty group.MEMBERS}">
+                      暂无成员
+                    </c:when>
+                    <c:otherwise>
+                      <c:forEach var="member" items="${group.MEMBERS}" varStatus="memberStatus">
+                        ${member}<c:if test="${not memberStatus.last}">, </c:if>
+                      </c:forEach>
+                    </c:otherwise>
+                  </c:choose>
+                </td>
                 <td><a href="CreateGroup.jsp?AID=${group.AID}" class="item"><i class="user plus icon"></i>邀请成员</a></td>
               </tr>
             </c:forEach>
-            </thead>
-            <tbody>
-            <!-- 更多课程 -->
-            </tbody>
+
+
           </table>
         </div>
       </div>
+      <!-- 这是右边部分结束  -->
     </div>
-    <!-- 这是右边部分结束  -->
   </div>
 </div>
-</div>
-
 
 
 <!-- foot content -->
