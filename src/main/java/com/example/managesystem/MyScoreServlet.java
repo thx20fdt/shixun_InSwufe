@@ -26,7 +26,7 @@ public class MyScoreServlet extends HttpServlet {
         String studentSid = (String) session.getAttribute("id");
 
         List<Score> scorelist = getStudentScores(studentSid); // 从数据库中获取学生的成绩列表
-        session.setAttribute("scoreList", scorelist);
+        session.setAttribute("scorelist", scorelist);
 
         request.getRequestDispatcher("MyScore.jsp").forward(request, response); // 转发到 MyScores.jsp 显示成绩页面
     }
