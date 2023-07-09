@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "UpdateProfileForTea", value = "/UpdateProfileForTea")
+@WebServlet(name = "UpdateProfileForTeaServlet", value = "/UpdateProfileForTeaServlet")
 public class UpdateProfileForTeaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -25,7 +25,7 @@
       <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
       <a href="" class="item"><i class="users icon"></i>我教的课</a>
       <a href="" class="item"><i class="clipboard icon"></i>     </a>
-      <a href="PersonalInfoForTea" class="item"><i class="id card icon"></i>个人信息</a>
+      <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
           <input type="text" placeholder="搜索……">
@@ -151,7 +151,7 @@
                       };
 
                       $.ajax({
-                        url: 'UpdateProfileForTea',
+                        url: 'UpdateProfileForTeaServlet',
                         type: 'POST',
                         data: data,
                         success: function(response) {
@@ -210,7 +210,7 @@
     修改失败
   </div>
   <div class="content">
-    <p>很抱歉，修改未成功提交,请注意您所修改的内容是否合理。或者您所修改的手机号已被注册。</p>
+    <p>很抱歉，修改未成功提交,您所修改的手机号已被注册。</p>
 
   </div>
   <div class="actions">
@@ -252,10 +252,6 @@
     $("#change-phone").click(function(e) {
       e.preventDefault();
       $("#new-phone-form").toggle();
-    });
-    $("#change-major").click(function(e) {
-      e.preventDefault();
-      $("#new-major-form").toggle();
     });
   });
 </script>

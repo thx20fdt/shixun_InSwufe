@@ -23,7 +23,7 @@
       <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
       <a href="TeaClass.html" class="item"><i class="keyboard icon"></i>管理班级</a>
       <a href="TeaGrade.html" class="item"><i class="clipboard icon"></i>学生成绩</a>
-      <a href="PersonnalInfoForTea" class="item"><i class="id card icon"></i>个人信息</a>
+      <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
           <input type="text" placeholder="搜索……">

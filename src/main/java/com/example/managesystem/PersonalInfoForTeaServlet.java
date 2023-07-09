@@ -13,8 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "PersonnalInfoForTea", value = "/PersonnalInfoForTea")
-public class PersonnalInfoForTeaServlet extends HttpServlet {
+@WebServlet(name = "PersonalInfoForTeaServlet", value = "/PersonalInfoForTeaServlet")
+public class PersonalInfoForTeaServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,7 +30,7 @@ public class PersonnalInfoForTeaServlet extends HttpServlet {
         session.setAttribute("teacher", teacher);
 
         // 转发到PersonalInfo.jsp显示个人基本信息
-        response.sendRedirect("PersonnalInfoForTea.jsp");
+        response.sendRedirect("PersonalInfoForTea.jsp");
     }
 
     private Teacher getTeacherInfo(String TID) {
