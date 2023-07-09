@@ -75,7 +75,7 @@
                 <div class="ui top attached segment">
                     <div class="ui middle aligned four column grid">
                         <div class="column">
-                            <h3 class="ui black header">${activity.TNAME}</h3>
+                            <h3 class="ui black header">${activity.ANAME}</h3>
                             <p class="ui small grey text">作答时间从${activity.BEGINTIME}至${activity.ENDTIME}</p>
                         </div>
                     </div>
