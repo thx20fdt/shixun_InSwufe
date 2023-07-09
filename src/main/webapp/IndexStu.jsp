@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -69,13 +69,13 @@
           <div class="ui cards">
             <c:forEach var="course" items="${courses}">
               <div class="card">
-                <a href="CourseDetail" name="${course.CID}">
+                <a href="CourseDetail?CID=${course.CID}" >
                   <div class="image">
                     <img src="">
                   </div>
                 </a>
                 <div class="content">
-                  <a href="CourseDetail" class="header" style="font-size: 1.2em; color: black;" name="${course.CID}">
+                  <a href="CourseDetail?CID=${course.CID}" class="header" style="font-size: 1.2em; color: black;">
                       ${course.CNAME}
                   </a>
                   <div class="meta">${course.TID}</div>
