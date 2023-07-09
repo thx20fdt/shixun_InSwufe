@@ -158,7 +158,7 @@
                 rules: [
                     {
                         type: 'regExp',
-                        value: /^\w{8,16}$/i,
+                        value: /^[0-9\-+]{8,16}$/i,
                         prompt: '用户名不合法'
                     },
                     {
