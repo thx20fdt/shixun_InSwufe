@@ -1,8 +1,8 @@
 package com.example.managesystem.activity;
 
-public class Activity {
+public class activity {
 
-    public Activity(){
+    public activity(){
 
     }
     public String AID;

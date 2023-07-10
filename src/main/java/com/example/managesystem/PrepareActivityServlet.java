@@ -1,6 +1,6 @@
 package com.example.managesystem;
 
-import com.example.managesystem.activity.Activity;
+import com.example.managesystem.activity.activity;
 import com.example.managesystem.db.DBUtil;
 
 import javax.servlet.*;
@@ -27,7 +27,7 @@ public class PrepareActivityServlet extends HttpServlet {
             String sql1 = "select AID,ANAME,ACONTENT,BEGINTIME,ENDTIME from Activity where AID =" +"'"+AID+"'";
             Statement stmt = con.createStatement();
             ResultSet rs=stmt.executeQuery(sql1);
-            Activity a = new Activity();
+            activity a = new activity();
             if(rs.next()){
                 a.setAID(rs.getString(1));
                 a.setANAME(rs.getString(2));
