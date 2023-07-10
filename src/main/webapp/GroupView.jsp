@@ -6,7 +6,7 @@
   Time: 12:44
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +23,7 @@
             <h2 class="ui teal header item">T4_课程管理系统</h2>
             <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
             <a href="ClassManage.jsp" class="item"><i class="keyboard icon"></i>管理班级</a>
-            <a href="TeaGrade.html" class="item"><i class="clipboard icon"></i>学生成绩</a>
+            <a href="StuScore.jsp" class="item"><i class="clipboard icon"></i>学生成绩</a>
             <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
             <div class="right item">
                 <div class="ui left icon inverted input">
@@ -104,8 +104,8 @@
                                     </c:forEach>
                                 </td>
                                 <td>
-                                    <button class="ui blue button" onclick="location.href=''">添加成员</button>
-                                    <button class="ui red button" onclick="location.href=''">删除成员</button>
+                                    <button class="ui blue button" onclick="addMember('${group.GID}')">添加成员</button>
+                                    <button class="ui red button" onclick="deleteMember('${group.GID}')">删除成员</button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -133,4 +133,16 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+    function addMember(gid) {
+        var url = 'AddStudentInGroup.jsp?AID=${sessionScope.AID}&GID=' + gid;
+        location.href = url;
+    }
+
+    function deleteMember(gid) {
+        // 处理删除成员的逻辑
+        var url = 'DeleteStuFromGroup.jsp?AID=${sessionScope.AID}&GID=' + gid;
+        location.href = url;
+    }
+</script>
 </html>

@@ -1,18 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 2023/7/10
-  Time: 11:25
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>管理您的教学班</title>
+  <title>删除小组成员</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="./me.css">
 </head>
@@ -34,10 +26,7 @@
     </div>
   </div>
 </nav>
-
 <!--mid content-->
-
-
 <div class="m-padded-tb-larger m-content">
   <div class="ui container">
     <div class="ui grid">
@@ -54,7 +43,7 @@
             <a class="item">
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
-            <a href="StuGroup.html" class="item">
+            <a href="MyGroupServlet" class="item">
               <i class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">
@@ -67,28 +56,39 @@
       <div class="thirteen wide column">
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
-            <div class="six wide column">
-              <h3 class="ui black header">班级信息管理</h3>
+            <div class="column">
+              <h3 class="ui black header"><%= request.getParameter("GID") %>小组</h3>
             </div>
           </div>
         </div>
         <div class="ui attached segment">
-          <div class="ui grid">
-            <div class="eight wide column">
-              <form action="AddStudentIntoMyClass" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="学生学号" name="SID">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    添加
-                  </button>
-                </div>
-              </form>
+          <form id="groupForm" class="ui form">
+            <div class="field">
+              <label>需要删除成员的学号</label>
+              <input type="text" id="memberId" name="memberId" placeholder="输入学号">
+              <input type="hidden" name="AID" value="<%= request.getParameter("AID") %>">
+              <input type="hidden" name="GID" value="<%= request.getParameter("GID") %>">
             </div>
-          </div>
+            <button class="ui red button" type="button" id="submitButton">删除</button>
+          </form>
         </div>
       </div>
       <!-- 这是右边部分结束  -->
+    </div>
+  </div>
+</div>
+
+<!--提示框弹出 -->
+<div class="ui small modal" id="alertModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content" id="alertContent">
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      确定
+      <i class="checkmark icon"></i>
     </div>
   </div>
 </div>
@@ -107,28 +107,47 @@
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 <script>
-  function deleteStudent(studentId, cid) {
-    if (confirm("确认删除该学生吗？")) {
-      $.ajax({
-        type: "POST",
-        url: "DeleteStudentServlet",
-        data: {sid: studentId, cid: cid}, // 传递两个值
-        success: function(response) {
-          // 根据删除结果进行相应的处理
-          if (response === "success") {
-            alert("删除成功！");
-            // 刷新学生列表
-            location.reload();
-          } else {
-            alert("删除失败！");
-          }
-        },
-        error: function() {
-          alert("请求失败，请重试！");
-        }
-      });
-    }
-  }
+  $(document).ready(function() {
+    $('#submitButton').click(function() {
+      var memberId = $('#memberId').val();
+      var AID = $('input[name="AID"]').val();
+      var GID = $('input[name="GID"]').val();
+
+      if (memberId == "") {
+        // 如果输入框中没有任何内容就点击了提交按钮，弹出提示框
+        $('#alertContent').text('请输入您需要删除的小组成员学号！');
+        $('#alertModal').modal('show');
+      } else {
+        // 构造表单数据对象
+        var formData = {
+          AID: AID,
+          GID: GID,
+          memberId: memberId
+        };
+
+        // 发送POST请求到DeleteStuFromGroupServlet
+        $.post("DeleteStuFromGroupServlet", formData)
+                .done(function(data) {
+                  // 在点击表单中的提交按钮之后，根据Servlet返回的消息进行处理
+                  if (data.indexOf("成功") !== -1) {
+                    // 成功将学生移出小组
+                    $('#alertContent').text('删除成功！');
+                    $('#alertModal').modal('show');
+                  } else {
+                    // 学生未在该组中或其他错误
+                    $('#alertContent').text(data);
+                    $('#alertModal').modal('show');
+                  }
+
+                  // 2秒后刷新页面
+                  setTimeout(function() {
+                    window.location.reload();
+                  }, 2000);
+                });
+      }
+    });
+  });
+
+
 </script>
 </html>
-

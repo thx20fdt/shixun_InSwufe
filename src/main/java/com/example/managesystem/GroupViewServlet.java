@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/GroupViewServlet")
 public class GroupViewServlet extends HttpServlet {
@@ -25,6 +26,8 @@ public class GroupViewServlet extends HttpServlet {
             throws ServletException, IOException {
         // 获取传递的AID参数
         String aid = request.getParameter("AID");
+        HttpSession session = request.getSession();
+        session.setAttribute("AID",aid);
 
         // 在这里执行查询小组信息的操作，根据AID进行数据库查询
         // 假设使用JDBC进行查询操作，具体实现方式可能会有所不同
