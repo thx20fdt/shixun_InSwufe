@@ -13,6 +13,15 @@ public class submit {
     public String ACONTENT;
 
     public double SCORE;
+    public double AVGSCORE;
+
+    public double getAVGSCORE() {
+        return AVGSCORE;
+    }
+
+    public void setAVGSCORE(double AVGSCORE) {
+        this.AVGSCORE = AVGSCORE;
+    }
 
     public void setSCORE(double SCORE) {
         this.SCORE = SCORE;

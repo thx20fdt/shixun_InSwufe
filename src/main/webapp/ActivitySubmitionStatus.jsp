@@ -22,8 +22,8 @@
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
       <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
-      <a href="ManageMyClass" class="item"><i class="users icon"></i>我教的课</a>
-      <a href="#" class="item"><i class="clipboard icon"></i>####</a>
+      <a href="ManageMyClass" class="item"><i class="users icon"></i>管理课程</a>
+      <a href="StuScore.jsp" class="item"><i class="clipboard icon"></i>学生成绩</a>
       <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
@@ -75,19 +75,6 @@
         <div class="ui attached segment">
           <div class="ui grid">
             <div class="eight wide column">
-              <form class="ui form" action="#">
-                <div class="fields">
-                  <div class="field">
-                    <input type="text" placeholder="学号">
-                  </div>
-                  <div class="field">
-                    <button class="ui blue button" type="submit">
-                      <i class="search icon"></i>
-                      查询
-                    </button>
-                  </div>
-                </div>
-              </form>
             </div>
           </div>
           <div class="ui grid">
