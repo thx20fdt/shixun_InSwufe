@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 public class SelectStuNameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
         // 获取学生姓名和cid参数值
         String studentName = request.getParameter("studentName");
         HttpSession session = request.getSession();
