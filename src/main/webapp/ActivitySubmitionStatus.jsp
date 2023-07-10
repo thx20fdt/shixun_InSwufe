@@ -88,6 +88,7 @@
               <th class="two wide">姓名</th>
               <th class="three wide">学号</th>
               <th class="three wide">组号</th>
+              <th class="two wide">批阅状况</th>
               <th class="two wide">操作</th>
             </tr>
             </thead>
@@ -97,6 +98,7 @@
                 <td>${submit.SNAME}</td>
                 <td>${submit.SID}</td>
                 <td>${submit.GID}</td>
+                <td>${submit.CONDITION}</td>
                 <td><a href="SubmitionDetail?AID=${submit.AID}&SID=${submit.SID}">查看</a></td>
               </tr>
             </c:forEach>
