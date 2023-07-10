@@ -17,6 +17,10 @@ import java.util.List;
 
 @WebServlet(name = "CourseToughtByMe", value = "/CourseToughtByMe")
 public class CourseToughtByMeServlet extends HttpServlet {
+
+
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -25,13 +29,14 @@ public class CourseToughtByMeServlet extends HttpServlet {
         List<course> courses = new ArrayList<>();
         try {
             Connection con = DBUtil.getConnection();
-            String sql = "select Class.CNAME,Class.CLASSTIME from Class where TID = "+"'"+TID+"'";
+            String sql = "select Class.CID,Class.CNAME,Class.CLASSTIME from Class where TID = "+"'"+TID+"'";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 course c = new course();
-                c.setCNAME(rs.getString(1));
-                c.setCLASSTIME(rs.getString(2));
+                c.setCID(rs.getString(1));
+                c.setCNAME(rs.getString(2));
+                c.setCLASSTIME(rs.getString(3));
                 courses.add(c);
             }
             rs.close();
