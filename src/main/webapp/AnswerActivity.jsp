@@ -82,7 +82,7 @@
                 </div>
                 <div class="ui attached segment">
                     <p>${activity.ACONTENT}</p>
-                    <form action="ActivitySubmitServlet" method="post">
+                    <form action="ActivitySubmit" method="post">
                     <div class="ui form reply">
                         <div class="field">
                             <textarea name="CONTENT" placeholder="输入你的作答"></textarea>
