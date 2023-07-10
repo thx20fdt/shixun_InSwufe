@@ -1,7 +1,7 @@
 package com.example.managesystem;
 
 import com.example.managesystem.db.DBUtil;
-import com.example.managesystem.activity.Activity;
+import com.example.managesystem.activity.activity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,10 +46,10 @@ public class SearchActivityServlet extends HttpServlet {
             resultSet = statement.executeQuery();
 
             // 存储查询结果
-            List<Activity> activityList = new ArrayList<>();
+            List<activity> activityList = new ArrayList<>();
 
             while (resultSet.next()) {
-                Activity activity = new Activity();
+                activity activity = new activity();
                 activity.setAID(resultSet.getString("AID"));
                 activity.setANAME(resultSet.getString("ANAME"));
                 // 其他属性的设置...
