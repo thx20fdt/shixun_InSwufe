@@ -6,7 +6,7 @@
   Time: 12:44
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +78,7 @@
               <form action="SearchActivityServlet" class="ui form" method="post">
                 <div class="ui action input">
                   <input type="text" placeholder="活动名称" name="activityName">
-                  <input type="hidden" name="cid" value="${cid}">
+                  <input type="hidden" name="cid" value="${sessionScope.cid}">
                   <button class="ui blue button" type="submit">
                     <i class="search icon"></i>
                     查询
@@ -88,7 +88,7 @@
             </div>
             <div class="four wide column">
               <div class="ui right floated">
-                <button class="ui green button" onclick="location.href='#'">
+                <button class="ui green button" onclick="location.href='ReleaseActivity.jsp?cid=${sessionScope.cid}'">
                   <i class="plus icon"></i>
                   添加新的活动
                 </button>
