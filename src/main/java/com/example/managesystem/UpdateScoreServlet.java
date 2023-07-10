@@ -32,6 +32,8 @@ public class UpdateScoreServlet extends HttpServlet {
             Statement statement = con.createStatement();
             String sql = "Update Activity_Submit set SCORE ="+score +" where SID ="+"'"+SID+"'"+"and AID="+"'"+AID+"'";
             statement.executeUpdate(sql);
+            statement.close();
+            con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

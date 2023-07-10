@@ -11,6 +11,17 @@ public class submit {
     public Date SUBMITTIME;
     public String ANAME;
     public String ACONTENT;
+
+    public double SCORE;
+
+    public void setSCORE(double SCORE) {
+        this.SCORE = SCORE;
+    }
+
+    public double getSCORE() {
+        return SCORE;
+    }
+
     public String getAID() {
         return AID;
     }

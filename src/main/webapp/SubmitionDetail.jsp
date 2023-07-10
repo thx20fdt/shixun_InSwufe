@@ -22,7 +22,7 @@
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
       <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
-      <a href="ManageMyClass" class="item"><i class="users icon"></i>我教的课</a>
+      <a href="ClassManage.jsp" class="item"><i class="users icon"></i>我教的课</a>
       <a href="#" class="item"><i class="clipboard icon"></i>####</a>
       <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
@@ -69,6 +69,7 @@
           <div class="ui middle aligned four column grid">
             <div class="six wide column">
               <h3 class="ui black header">${submition.ANAME}</h3>
+              <h3 class="ui black header">得分：${submition.SCORE}</h3>
             </div>
           </div>
         </div>
