@@ -75,48 +75,17 @@
         <div class="ui attached segment">
           <div class="ui grid">
             <div class="eight wide column">
-              <form action="SelectStuNameServlet" class="ui form" method="post">
+              <form action="AddStudentIntoMyClass" class="ui form" method="post">
                 <div class="ui action input">
-                  <input type="text" placeholder="学生姓名" name="studentName">
+                  <input type="text" placeholder="学生学号" name="SID">
                   <button class="ui blue button" type="submit">
                     <i class="search icon"></i>
-                    查询
+                    添加
                   </button>
                 </div>
               </form>
             </div>
-            <div class="four wide column">
-              <div class="ui right floated">
-                <button class="ui green button" onclick="location.href='AddStudentIntoMyClass.jsp'">
-                  <i class="plus icon"></i>
-                  添加学生
-                </button>
-              </div>
-            </div>
           </div>
-          <table class="ui celled table">
-            <thead>
-            <tr>
-              <th class="four wide">专业</th>
-              <th class="three wide">姓名</th>
-              <th class="four wide">学号</th>
-              <th class="two wide">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="student" items="${studentList}">
-              <tr>
-                <td>${student.major}</td>
-                <td>${student.name}</td>
-                <td>${student.sid}</td>
-                <td>
-                  <button class="ui red button" onclick="deleteStudent('${student.sid}', '${sessionScope.cid}')">删除</button>
-                </td>
-              </tr>
-            </c:forEach>
-            </tbody>
-          </table>
-
         </div>
       </div>
       <!-- 这是右边部分结束  -->
@@ -162,5 +131,4 @@
   }
 </script>
 </html>
-
 
