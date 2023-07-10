@@ -1,6 +1,6 @@
 package com.example.managesystem;
 
-import com.example.managesystem.activity.activity;
+import com.example.managesystem.activity.Activity;
 import com.example.managesystem.course.course;
 import com.example.managesystem.db.DBUtil;
 
@@ -9,8 +9,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,11 +40,11 @@ public class CourseDetailServlet extends HttpServlet {
             }
             rs.close();
             request.setAttribute("course",course);
-            List<activity> acs = new ArrayList<>();
+            List<Activity> acs = new ArrayList<>();
             String sql1 = "select AID,ANAME,ACONTENT,BEGINTIME,ENDTIME from Activity where CID =" +"'"+CID+"'";
             ResultSet rs1 = stmt.executeQuery(sql1);
             while(rs1.next()){
-                activity a =  new activity();
+                Activity a =  new Activity();
                 a.setAID(rs1.getString(1));
                 a.setANAME(rs1.getString(2));
                 a.setACONTENT(rs1.getString(3));

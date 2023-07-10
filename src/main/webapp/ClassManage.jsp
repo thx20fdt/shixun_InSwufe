@@ -97,7 +97,7 @@
                                     <td>${classObj.CLASSTIME}</td>
                                     <td>
                                         <button class="ui blue button" onclick="location.href='SelectStudentServlet?CID=${classObj.CID}'">查看</button>
-                                        <button class="ui green button" onclick="location.href='ManageClassServlet?CID=${classObj.CID}'">管理</button>
+                                        <button class="ui green button" onclick="location.href='ManageActivityServlet?CID=${classObj.CID}'">管理</button>
                                     </td>
                                 </tr>
                             </c:forEach>

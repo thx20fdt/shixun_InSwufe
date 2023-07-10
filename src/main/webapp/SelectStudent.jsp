@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>管理您的教学班</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-  <link rel="stylesheet" href="./static/css/me.css">
+  <link rel="stylesheet" href="./me.css">
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini">

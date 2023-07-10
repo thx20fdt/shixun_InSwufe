@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2023/7/10
-  Time: 11:25
+  Time: 12:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,9 +12,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理您的教学班</title>
+    <title>管理您的班级活动</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="./static/css/me.css">
+    <link rel="stylesheet" href="./me.css">
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini">
@@ -68,16 +68,16 @@
                 <div class="ui top attached segment">
                     <div class="ui middle aligned four column grid">
                         <div class="six wide column">
-                            <h3 class="ui black header">班级信息管理</h3>
+                            <h3 class="ui black header">小组信息管理</h3>
                         </div>
                     </div>
                 </div>
                 <div class="ui attached segment">
                     <div class="ui grid">
                         <div class="eight wide column">
-                            <form action="SelectStuNameServlet" class="ui form" method="post">
+                            <form action="#" class="ui form" method="post">
                                 <div class="ui action input">
-                                    <input type="text" placeholder="学生姓名" name="studentName">
+                                    <input type="text" placeholder="学生姓名" name="StudentName">
                                     <button class="ui blue button" type="submit">
                                         <i class="search icon"></i>
                                         查询
@@ -85,43 +85,33 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="four wide column">
-                            <div class="ui right floated">
-                                <button class="ui green button" onclick="location.href='#'">
-                                    <i class="plus icon"></i>
-                                    添加学生
-                                </button>
-                            </div>
-                        </div>
                     </div>
                     <table class="ui celled table">
                         <thead>
                         <tr>
-                            <th class="four wide">专业</th>
-                            <th class="three wide">姓名</th>
-                            <th class="four wide">学号</th>
-                            <th class="two wide">操作</th>
+                            <th class="six wide">小组ID</th>
+                            <th class="six wide">小组成员</th>
+                            <th class="six wide">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="student" items="${studentList}">
+                        <c:forEach var="group" items="${groupList}">
                             <tr>
-                                <td>${student.major}</td>
-                                <td>${student.name}</td>
-                                <td>${student.sid}</td>
+                                <td>${group.GID}</td>
                                 <td>
-                                    <button class="ui red button" onclick="deleteStudent('${student.sid}', '${sessionScope.cid}')">删除</button>
+                                    <c:forEach var="member" items="${group.MEMBERS}" varStatus="memberStatus">
+                                        ${member}<c:if test="${not memberStatus.last}">, </c:if>
+                                    </c:forEach>
+                                </td>
+                                <td>
+                                    <button class="ui blue button" onclick="location.href=''">添加成员</button>
+                                    <button class="ui red button" onclick="location.href=''">删除成员</button>
                                 </td>
                             </tr>
-                            <c:if test="${student.sid eq 'N/A'}">
-                                <tr>
-                                    <td colspan="4">未查到此学生</td>
-                                </tr>
-                            </c:if>
                         </c:forEach>
-
                         </tbody>
                     </table>
+
 
                 </div>
             </div>
@@ -143,30 +133,4 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<script>
-    function deleteStudent(studentId, cid) {
-        if (confirm("确认删除该学生吗？")) {
-            $.ajax({
-                type: "POST",
-                url: "DeleteStudentServlet",
-                data: {sid: studentId, cid: cid}, // 传递两个值
-                success: function(response) {
-                    // 根据删除结果进行相应的处理
-                    if (response === "success") {
-                        alert("删除成功！");
-                        // 刷新学生列表
-                        location.reload();
-                    } else {
-                        alert("删除失败！");
-                    }
-                },
-                error: function() {
-                    alert("请求失败，请重试！");
-                }
-            });
-        }
-    }
-</script>
 </html>
-
-

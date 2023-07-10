@@ -1,6 +1,6 @@
 package com.example.managesystem;
 
-import com.example.managesystem.activity.activity;
+import com.example.managesystem.activity.Activity;
 import com.example.managesystem.db.DBUtil;
 
 import javax.servlet.*;
@@ -8,8 +8,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +27,7 @@ public class PrepareActivityServlet extends HttpServlet {
             String sql1 = "select AID,ANAME,ACONTENT,BEGINTIME,ENDTIME from Activity where AID =" +"'"+AID+"'";
             Statement stmt = con.createStatement();
             ResultSet rs=stmt.executeQuery(sql1);
-            activity a = new activity();
+            Activity a = new Activity();
             if(rs.next()){
                 a.setAID(rs.getString(1));
                 a.setANAME(rs.getString(2));

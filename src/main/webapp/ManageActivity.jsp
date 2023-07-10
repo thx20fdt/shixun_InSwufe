@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
@@ -101,15 +102,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>活动一</td>
-              <td>
-                <button class="ui blue button" onclick="location.href='#'">查看分组</button>
-                <button class="ui red button" onclick="location.href='#'">删除活动</button>
-              </td>
-            </tr>
+            <c:forEach var="activity" items="${activityList}">
+              <tr>
+                <td>${activity.ANAME}</td>
+                <td>
+                  <button class="ui blue button" onclick="location.href='GroupViewServlet?AID=${activity.AID}'">查看分组</button>
+                  <button class="ui red button" onclick="deleteActivity('${activity.AID}')">删除活动</button>
+
+                </td>
+              </tr>
+            </c:forEach>
             </tbody>
           </table>
+
         </div>
       </div>
       <!-- 这是右边部分结束  -->
@@ -123,11 +128,37 @@
 <footer class="ui inverted vertical segment">
   <div class="ui center aligned container">
     <div class="ui inverted section divider">
-      <p class="m-text-thin m-opacity-mini">Copyright © 2022-2023 Designed by T4_Group</p>
+      <p class="m-text-thin m-opacity-mini">Designed by T4_Group</p>
     </div>
   </div>
 </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+  function deleteActivity(aid) {
+    if (confirm("确认删除该活动吗？")) {
+      // 发送AJAX请求到后端进行活动删除操作
+      $.ajax({
+        type: "POST",
+        url: "DeleteActivityServlet",
+        data: {aid: aid},
+        success: function(response) {
+          // 根据删除结果进行相应的处理
+          if (response === "success") {
+            alert("活动删除成功！");
+            // 刷新页面或执行其他操作
+            location.reload();
+          } else {
+            alert("活动删除失败！");
+          }
+        },
+        error: function() {
+          alert("请求失败，请重试！");
+        }
+      });
+    }
+  }
+</script>
+
+
 </html>
