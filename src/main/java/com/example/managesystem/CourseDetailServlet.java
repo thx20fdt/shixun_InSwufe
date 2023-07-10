@@ -1,6 +1,6 @@
 package com.example.managesystem;
 
-import com.example.managesystem.activity.Activity;
+import com.example.managesystem.activity.activity;
 import com.example.managesystem.course.course;
 import com.example.managesystem.db.DBUtil;
 
@@ -40,11 +40,11 @@ public class CourseDetailServlet extends HttpServlet {
             }
             rs.close();
             request.setAttribute("course",course);
-            List<Activity> acs = new ArrayList<>();
+            List<activity> acs = new ArrayList<>();
             String sql1 = "select AID,ANAME,ACONTENT,BEGINTIME,ENDTIME from Activity where CID =" +"'"+CID+"'";
             ResultSet rs1 = stmt.executeQuery(sql1);
             while(rs1.next()){
-                Activity a =  new Activity();
+                activity a =  new activity();
                 a.setAID(rs1.getString(1));
                 a.setANAME(rs1.getString(2));
                 a.setACONTENT(rs1.getString(3));

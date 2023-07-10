@@ -1,7 +1,7 @@
 package com.example.managesystem;
 
 import com.example.managesystem.db.DBUtil;
-import com.example.managesystem.activity.Activity;
+import com.example.managesystem.activity.activity;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -49,12 +49,12 @@ public class ManageActivityServlet extends HttpServlet {
             resultSet = statement.executeQuery();
 
             // 创建一个List用于存储查询结果
-            List<Activity> activityList = new ArrayList<>();
+            List<activity> activityList = new ArrayList<>();
 
             // 遍历查询结果集，将每个活动名称存储到Activity对象中，并添加到activityList中
             while (resultSet.next()) {
 
-                Activity activity = new Activity();
+                activity activity = new activity();
                 activity.setANAME(resultSet.getString("ANAME"));
                 activity.setAID(resultSet.getString("AID"));
                 activityList.add(activity);
