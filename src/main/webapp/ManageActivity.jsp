@@ -75,9 +75,10 @@
         <div class="ui attached segment">
           <div class="ui grid">
             <div class="eight wide column">
-              <form action="#" class="ui form" method="post">
+              <form action="SearchActivityServlet" class="ui form" method="post">
                 <div class="ui action input">
-                  <input type="text" placeholder="活动名称" name="">
+                  <input type="text" placeholder="活动名称" name="activityName">
+                  <input type="hidden" name="cid" value="${cid}">
                   <button class="ui blue button" type="submit">
                     <i class="search icon"></i>
                     查询
