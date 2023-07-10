@@ -75,9 +75,9 @@
                 <div class="ui attached segment">
                     <div class="ui grid">
                         <div class="eight wide column">
-                            <form action="#" class="ui form" method="post">
+                            <form action="SearchGroupBySNAME" class="ui form" method="post">
                                 <div class="ui action input">
-                                    <input type="text" placeholder="学生姓名" name="StudentName">
+                                    <input type="text" placeholder="学生姓名" name="SNAME">
                                     <button class="ui blue button" type="submit">
                                         <i class="search icon"></i>
                                         查询
