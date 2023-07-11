@@ -10,23 +10,7 @@
   <link rel="stylesheet" href="me.css">
 </head>
 <body>
-<nav class="ui inverted attached segment m-padded-tb-mini">
-  <div class="ui container">
-    <div class="ui inverted secondary menu">
-      <h2 class="ui teal header item">T4_课程管理系统</h2>
-      <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
-      <a href="ClassManage.jsp" class="item"><i class="users icon"></i>管理课程</a>
-      <a href="StuScore.jsp" class="item"><i class="clipboard icon"></i>学生成绩</a>
-      <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
-      <div class="right item">
-        <div class="ui left icon inverted input">
-          <input type="text" placeholder="搜索……">
-          <i class="search link icon"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+<jsp:include page="Tea.jsp" />
 
 <!--mid content-->
 
@@ -57,6 +41,7 @@
         </div>
       </div>
       <!-- 这是右边的列表-->
+      <!-- 这是右边的列表-->
       <div class="thirteen wide column">
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
@@ -75,15 +60,26 @@
               <label>活动内容</label>
               <textarea name="activityContent" placeholder="输入活动内容" required></textarea>
             </div>
-            <div class="field">
-              <label>是否可分组</label>
-              <div class="ui radio checkbox">
-                <input type="radio" name="groupable" value="true">
-                <label>是</label>
+            <div class="fields">
+              <div class="eight wide field">
+                <label>是否可分组</label>
+                <div class="ui radio checkbox">
+                  <input type="radio" name="groupable" value="true">
+                  <label>是</label>
+                </div>
+                <div class="ui radio checkbox">
+                  <input type="radio" name="groupable" value="false" checked>
+                  <label>否</label>
+                </div>
               </div>
-              <div class="ui radio checkbox">
-                <input type="radio" name="groupable" value="false" checked>
-                <label>否</label>
+              <div class="eight wide field">
+                <label>活动截止时间</label>
+                <div class="ui calendar" id="datetimePicker">
+                  <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" name="activityDeadline" placeholder="选择截止时间" required>
+                  </div>
+                </div>
               </div>
             </div>
             <input type="hidden" name="cid" value="<%= request.getSession().getAttribute("cid") %>">
@@ -110,5 +106,23 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script> $('#datetimePicker').calendar({
+  type: 'datetime',
+  formatter: {
+    datetime: function (date, settings) {
+      if (!date) return '';
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var hour = date.getHours();
+      var minute = date.getMinutes();
+      var second = date.getSeconds();
+      return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    }
+  }
+});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.js"></script>
 
 </html>
