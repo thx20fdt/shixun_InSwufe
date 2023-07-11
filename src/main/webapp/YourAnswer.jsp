@@ -1,30 +1,37 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 2023/7/10
-  Time: 12:44
+  User: FX506H
+  Date: 2023/7/11
+  Time: 15:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理您的班级活动</title>
+    <title>我的课程</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="./me.css">
+    <link rel="stylesheet" href="me.css">
 </head>
 <body>
 <nav class="ui inverted attached segment m-padded-tb-mini">
     <div class="ui container">
         <div class="ui inverted secondary menu">
             <h2 class="ui teal header item">T4_课程管理系统</h2>
-            <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
-            <a href="ClassManage.jsp" class="item"><i class="keyboard icon"></i>管理班级</a>
-            <a href="StuScore.jsp" class="item"><i class="clipboard icon"></i>学生成绩</a>
-            <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
+            <a href="MyCourse" class="item"><i class="home icon"></i>首页</a>
+            <a href="MyCourseInfoServlet" class="item"><i class="users icon"></i>我的课程</a>
+            <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>查看成绩</a>
+            <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
             <div class="right item">
                 <div class="ui left icon inverted input">
                     <input type="text" placeholder="搜索……">
@@ -67,59 +74,28 @@
             <div class="thirteen wide column">
                 <div class="ui top attached segment">
                     <div class="ui middle aligned four column grid">
-                        <div class="six wide column">
-                            <h3 class="ui black header">小组信息管理</h3>
+                        <div class="column">
+                            <h3 class="ui black header">${submit.ANAME}</h3>
+                            <p class="ui small grey text">作答时间从${activity.BEGINTIME}至${activity.ENDTIME}</p>
                         </div>
                     </div>
                 </div>
                 <div class="ui attached segment">
-                    <div class="ui grid">
-                        <div class="eight wide column">
-                            <form action="SearchGroupBySNAME" class="ui form" method="post">
-                                <div class="ui action input">
-                                    <input type="text" placeholder="学生姓名" name="StudentName">
-                                    <button class="ui blue button" type="submit">
-                                        <i class="search icon"></i>
-                                        查询
-                                    </button>
-                                </div>
-                            </form>
+                    <p>${activity.ACONTENT}</p>
+                    <form action="ActivitySubmit" method="post">
+                        <div class="ui form reply">
+                            <input type="hidden" id="hiddenField" name="AID" value="${activity.AID}">
+                            <div class="field">
+                                <textarea placeholder="你提交的内容" disabled>${submit.CONTENT}</textarea>
+                            </div>
                         </div>
-                    </div>
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th class="six wide">小组ID</th>
-                            <th class="six wide">小组成员</th>
-                            <th class="six wide">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="group" items="${groupList}">
-                            <tr>
-                                <td>${group.GID}</td>
-                                <td>
-                                    <c:forEach var="member" items="${group.MEMBERS}" varStatus="memberStatus">
-                                        ${member}<c:if test="${not memberStatus.last}">, </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <button class="ui blue button" onclick="addMember('${group.GID}')">添加成员</button>
-                                    <button class="ui red button" onclick="deleteMember('${group.GID}')">删除成员</button>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-
-
+                    </form>
                 </div>
             </div>
             <!-- 这是右边部分结束  -->
         </div>
     </div>
 </div>
-
 
 
 <!-- foot content -->
@@ -133,16 +109,5 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<script>
-    function addMember(gid) {
-        var url = 'AddStudentInGroup.jsp?AID=${sessionScope.AID}&GID=' + gid;
-        location.href = url;
-    }
-
-    function deleteMember(gid) {
-        // 处理删除成员的逻辑
-        var url = 'DeleteStuFromGroup.jsp?AID=${sessionScope.AID}&GID=' + gid;
-        location.href = url;
-    }
-</script>
 </html>
+</script>

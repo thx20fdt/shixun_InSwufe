@@ -83,7 +83,7 @@
                         <c:forEach var="activity" items="${acs}">
                         <div class="item" onclick="goTask('YourServletURL')" onkeydown="if(event.keyCode == 13){goTask('YourServletURL');}">
                             <div class="content">
-                                <a href="PrepareActivityServlet?AID=${activity.AID}" class="header" >${activity.ANAME}</a>
+                                <a href="PrepareActivityServlet?AID=${activity.AID}&ANAME=${activity.ANAME}" class="header" >${activity.ANAME}</a>
                             </div>
                         </div>
                             </c:forEach>

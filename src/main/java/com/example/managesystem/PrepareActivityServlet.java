@@ -36,7 +36,7 @@ public class PrepareActivityServlet extends HttpServlet {
                 a.setENDTIME(rs.getDate(5).toString());
             }
             request.setAttribute("activity",a);
-            request.getRequestDispatcher("AnswerActivity.jsp").forward(request,response);
+            request.getRequestDispatcher("IsSubmitted").forward(request,response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,11 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: FX506H
-  Date: 2023/7/8
-  Time: 10:34
+  Date: 2023/7/11
+  Time: 16:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,10 +21,10 @@
   <div class="ui container">
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
-      <a href="MyCourse" class="item"><i class="home icon"></i>首页</a>
-      <a href="MyCourseInfoServlet" class="item"><i class="users icon"></i>我的课程</a>
-      <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>查看成绩</a>
-      <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
+      <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
+      <a href="ClassManage.jsp" class="item"><i class="users icon"></i>管理课程</a>
+      <a href="StuScore.jsp" class="item"><i class="clipboard icon"></i>学生成绩</a>
+      <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
         <div class="ui left icon inverted input">
           <input type="text" placeholder="搜索……">
@@ -54,7 +54,7 @@
             <a class="item">
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
-            <a href="MyGroupServlet" class="item">
+            <a href="StuGroup.html" class="item">
               <i class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">
@@ -67,60 +67,20 @@
       <div class="thirteen wide column">
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
-            <div class="column">
-              <h3 class="ui black header">课程列表</h3>
+            <div class="six wide column">
+              <h3 class="ui black header">${sessionScope.submit.ANAME}</h3>
+              <h3 class="ui black header">得分：${sessionScope.submit.SCORE}</h3>
             </div>
           </div>
         </div>
         <div class="ui attached segment">
-          <div class="ui grid">
-            <div class="six wide column">
-              <form action="SearchClassByCNAMEServlet" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="按课程名称搜索添加课程" name="CNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    搜索
-                  </button>
-                </div>
-              </form>
+          <p>${sessionScope.submit.ACONTENT}</p>
+          <div class="ui form reply" id="gradeForm">
+            <div class="field">
+              <textarea placeholder="学生的作答" disabled>${sessionScope.submit.CONTENT}</textarea>
             </div>
-            <div class="six wide column" style="margin-left: 100px; margin-right: 20px;">
-              <form action="SearchClassByTNAME" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="按任课教师搜索添加课程" name="TNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    搜索
-                  </button>
-                </div>
-              </form>
-            </div>
+            <div class="ui error message"></div>
           </div>
-          <div class="ui grid">
-            <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-              <h4 class="ui dividing header">已选课程信息</h4>
-            </div>
-          </div>
-          <table class="ui celled table">
-            <thead>
-            <tr>
-              <th>课程名称</th>
-              <th>任课教师</th>
-              <th>上课时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="course" items="${cs}">
-              <tr>
-                <td>${course.CNAME}</td>
-                <td>${course.TNAME}</td>
-                <td>${course.CLASSTIME}</td>
-              </tr>
-            </c:forEach>
-            <!-- 更多课程 -->
-            </tbody>
-          </table>
         </div>
       </div>
       <!-- 这是右边部分结束  -->
@@ -140,4 +100,26 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#gradeForm').form({
+      fields: {
+        grade: {
+          identifier  : 'grade',
+          rules: [
+            {
+              type   : 'empty',
+              prompt : '请输入成绩'
+            },
+            {
+              type   : 'integer[0..100]',
+              prompt : '成绩应在0-100之间'
+            }
+          ]
+        },
+      }
+    });
+  });
+</script>
 </html>
+

@@ -9,4 +9,6 @@
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 </body>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.js"></script>
 </html>

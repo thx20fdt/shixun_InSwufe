@@ -23,6 +23,8 @@ public class ShowActivityDetailServlet extends HttpServlet {
         HttpSession session =request.getSession();
         request.setCharacterEncoding("utf-8");
         String AID =  request.getParameter("AID");
+        String ACONTENT = request.getParameter("ACONTENT");
+        String ENDTIME = request.getParameter("ENDTIME");
         String CID = (String) session.getAttribute("CID");
         List<submit> submitList = new ArrayList<>();
 
@@ -47,6 +49,11 @@ public class ShowActivityDetailServlet extends HttpServlet {
             stmt.close();
             con.close();
 
+
+
+
+            request.setAttribute("acontent",ACONTENT);
+            request.setAttribute("endtime",ENDTIME);
             request.setAttribute("submitList",submitList);
             request.getRequestDispatcher("ActivitySubmitionStatus.jsp").forward(request,response);
         } catch (SQLException e) {
