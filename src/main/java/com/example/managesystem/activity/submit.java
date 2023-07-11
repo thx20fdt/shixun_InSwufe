@@ -15,6 +15,16 @@ public class submit {
     public double SCORE;
     public double AVGSCORE;
 
+    public String CONDITION;
+
+    public String getCONDITION() {
+        return CONDITION;
+    }
+
+    public void setCONDITION(String CONDITION) {
+        this.CONDITION = CONDITION;
+    }
+
     public double getAVGSCORE() {
         return AVGSCORE;
     }

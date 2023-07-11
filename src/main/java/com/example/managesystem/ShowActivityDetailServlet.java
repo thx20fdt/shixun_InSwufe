@@ -29,7 +29,7 @@ public class ShowActivityDetailServlet extends HttpServlet {
         try {
             Connection con = DBUtil.getConnection();
             Statement stmt = con.createStatement();
-            String sql = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME,Activity_Submit.GID,  Activity_Submit.CONTENT from Activity_Submit ,Activity ,Student where Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.AID ="+"'"+AID+"'";
+            String sql = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME,Activity_Submit.GID,  Activity_Submit.CONTENT ,Activity_Submit.CONDITION from Activity_Submit ,Activity ,Student where Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.AID ="+"'"+AID+"'";
 
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()){
@@ -40,6 +40,7 @@ public class ShowActivityDetailServlet extends HttpServlet {
                 submit.setSNAME(rs.getString(4));
                 submit.setGID(rs.getString(5));
                 submit.setCONTENT(rs.getString(6));
+                submit.setCONDITION(rs.getString(7));
                 submitList.add(submit);
             }
             rs.close();
