@@ -60,15 +60,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:if test="${not empty classList}">
-                            <c:forEach var="classObj" items="${classList}">
+                        <c:if test="${not empty sessionScope.classList}">
+                            <c:forEach var="classObj" items="${sessionScope.classList}">
                                 <tr>
                                     <td>${classObj.CID}</td>
                                     <td>${classObj.CNAME}</td>
                                     <td>${classObj.CLASSTIME}</td>
                                     <td>
-                                        <button class="ui blue button" onclick="location.href='SelectStudentServlet?CID=${classObj.CID}'">查看</button>
-                                        <button class="ui green button" onclick="location.href='ManageActivityServlet?CID=${classObj.CID}'">管理</button>
+                                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                            <button class="ui blue button" style="margin-bottom: 5px;width:140px" onclick="location.href='SelectStudentServlet?CID=${classObj.CID}'">查看本班学生</button>
+                                            <button class="ui green button" style="width:140px"onclick="location.href='ManageActivityServlet?CID=${classObj.CID}'">管理活动和分组</button>
+                                        </div>
                                     </td>
                                 </tr>
                             </c:forEach>

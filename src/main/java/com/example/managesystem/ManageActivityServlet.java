@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,10 +63,11 @@ public class ManageActivityServlet extends HttpServlet {
                 activity.setANAME(resultSet.getString("ANAME"));
                 activity.setAID(resultSet.getString("AID"));
                 activityList.add(activity);
-            }
 
-            // 将activityList存储在request属性中，以便在JSP页面中使用
-            request.setAttribute("activityList", activityList);
+            }
+            Collections.reverse(activityList);
+
+            session.setAttribute("activityList", activityList);
 
             // 转发到ManageActivity.jsp页面
             request.getRequestDispatcher("ManageActivity.jsp").forward(request, response);
@@ -118,10 +120,12 @@ public class ManageActivityServlet extends HttpServlet {
                 activity.setANAME(resultSet.getString("ANAME"));
                 activity.setAID(resultSet.getString("AID"));
                 activityList.add(activity);
-            }
 
-            // 将activityList存储在request属性中，以便在JSP页面中使用
-            request.setAttribute("activityList", activityList);
+            }
+            Collections.reverse(activityList);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("activityList", activityList);
 
             // 转发到ManageActivity.jsp页面
             request.getRequestDispatcher("ManageActivity.jsp").forward(request, response);

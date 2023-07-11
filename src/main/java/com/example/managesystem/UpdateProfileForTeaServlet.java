@@ -1,7 +1,6 @@
 package com.example.managesystem;
 
 import com.example.managesystem.db.DBUtil;
-import com.example.managesystem.user.Student;
 import com.example.managesystem.user.Teacher;
 
 import javax.servlet.*;
@@ -23,6 +22,8 @@ public class UpdateProfileForTeaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         // 从请求参数中获取要更新的信息
         String gender = request.getParameter("gender");
         String phone = request.getParameter("new_phone");
@@ -37,12 +38,11 @@ public class UpdateProfileForTeaServlet extends HttpServlet {
             Teacher updatedTeacher = getUpdatedTeacher(TID);
 
 
-            session.setAttribute("teacher", updatedTeacher); // 将更新后的student对象设置到request中
-            session.setAttribute("updateSuccess", true); // 设置updateSuccess为true
-            request.getRequestDispatcher("PersonalInfoForTea.jsp").forward(request, response); // 重定向到PersonalInfo.jsp
+           session.setAttribute("teacher", updatedTeacher);
+            response.getWriter().println("修改个人信息成功");
+
         } else {
-            session.setAttribute("updateSuccess", false); // 设置updateSuccess为false
-            request.getRequestDispatcher("PersonalInfoForTea.jsp").forward(request, response); // 更新失败，重定向到PersonalInfo.jsp
+            response.getWriter().println("修改个人信息失败，您所输的电话号码已被注册");
         }
     }
 

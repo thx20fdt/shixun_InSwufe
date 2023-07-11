@@ -8,6 +8,7 @@
   <title>我的课程</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="me.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.css">
 </head>
 <body>
 <jsp:include page="Tea.jsp" />
@@ -62,24 +63,33 @@
             </div>
             <div class="fields">
               <div class="eight wide field">
-                <label>是否可分组</label>
-                <div class="ui radio checkbox">
-                  <input type="radio" name="groupable" value="true">
-                  <label>是</label>
-                </div>
-                <div class="ui radio checkbox">
-                  <input type="radio" name="groupable" value="false" checked>
-                  <label>否</label>
+                <label>活动开始时间</label>
+                <div class="ui calendar" id="startDatetimePicker">
+                  <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" name="activityStartTime" placeholder="选择开始时间" required>
+                  </div>
                 </div>
               </div>
               <div class="eight wide field">
                 <label>活动截止时间</label>
-                <div class="ui calendar" id="datetimePicker">
+                <div class="ui calendar" id="endDatetimePicker">
                   <div class="ui input left icon">
                     <i class="calendar icon"></i>
                     <input type="text" name="activityDeadline" placeholder="选择截止时间" required>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>是否可分组</label>
+              <div class="ui radio checkbox">
+                <input type="radio" name="groupable" value="true">
+                <label>是</label>
+              </div>
+              <div class="ui radio checkbox">
+                <input type="radio" name="groupable" value="false" checked>
+                <label>否</label>
               </div>
             </div>
             <input type="hidden" name="cid" value="<%= request.getSession().getAttribute("cid") %>">
@@ -99,30 +109,45 @@
 <footer class="ui inverted vertical segment">
   <div class="ui center aligned container">
     <div class="ui inverted section divider">
-      <p class="m-text-thin m-opacity-mini">Copyright © 2022-2023 Designed by T4_Group</p>
+      <p class="m-text-thin m-opacity-mini">Designed by T4_Group</p>
     </div>
   </div>
 </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<script> $('#datetimePicker').calendar({
-  type: 'datetime',
-  formatter: {
-    datetime: function (date, settings) {
-      if (!date) return '';
-      var year = date.getFullYear();
-      var month = date.getMonth() + 1;
-      var day = date.getDate();
-      var hour = date.getHours();
-      var minute = date.getMinutes();
-      var second = date.getSeconds();
-      return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
-    }
-  }
-});
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+  $('#startDatetimePicker').calendar({
+    type: 'datetime',
+    formatter: {
+      datetime: function (date, settings) {
+        if (!date) return '';
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+      }
+    }
+  });
 
+  $('#endDatetimePicker').calendar({
+    type: 'datetime',
+    formatter: {
+      datetime: function (date, settings) {
+        if (!date) return '';
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+      }
+    }
+  });
+</script>
 </html>

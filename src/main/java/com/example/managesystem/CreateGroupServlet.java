@@ -19,6 +19,9 @@ import java.util.List;
 @WebServlet("/CreateGroupServlet")
 public class CreateGroupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         // 获取表单数据
         String memberId = request.getParameter("memberId");
         String memberPhone = request.getParameter("memberPhone");
@@ -361,7 +364,7 @@ public class CreateGroupServlet extends HttpServlet {
                 String groupId = resultSet.getString("GID");
                 String[] parts = groupId.split("_");
                 if (parts.length > 1) {
-                    String suffix = parts[1];
+                    String suffix = parts[2];
                     int groupIdSuffix = Integer.parseInt(suffix);
                     if (groupIdSuffix > maxGroupIdSuffix) {
                         maxGroupIdSuffix = groupIdSuffix;

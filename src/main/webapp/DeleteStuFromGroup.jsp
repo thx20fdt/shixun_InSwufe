@@ -70,7 +70,7 @@
   <div class="content" id="alertContent">
   </div>
   <div class="actions">
-    <div class="ui positive right labeled icon button">
+    <div class="ui positive right labeled icon button" id="confirmButton">
       确定
       <i class="checkmark icon"></i>
     </div>
@@ -117,10 +117,16 @@
                     // 成功将学生移出小组
                     $('#alertContent').text('删除成功！');
                     $('#alertModal').modal('show');
+
+                    // 点击确定按钮后跳转到GroupViewServlet
+                    $('#confirmButton').click(function() {
+                      window.location.href = 'GroupViewServlet?AID=<%= request.getParameter("AID") %>';
+                    });
                   } else {
                     // 学生未在该组中或其他错误
                     $('#alertContent').text(data);
                     $('#alertModal').modal('show');
+
                   }
 
                   // 2秒后刷新页面

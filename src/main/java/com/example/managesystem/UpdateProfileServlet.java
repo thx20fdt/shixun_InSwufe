@@ -20,6 +20,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/UpdateProfileServlet")
 public class UpdateProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         // 从请求参数中获取要更新的信息
         String gender = request.getParameter("gender");
         String phone = request.getParameter("new_phone");
@@ -36,11 +38,10 @@ public class UpdateProfileServlet extends HttpServlet {
 
 
             session.setAttribute("student", updatedStudent); // 将更新后的student对象设置到request中
-            session.setAttribute("updateSuccess", true); // 设置updateSuccess为true
-            request.getRequestDispatcher("PersonalInfo.jsp").forward(request, response); // 重定向到PersonalInfo.jsp
+            response.getWriter().println("修改个人信息成功");
+
         } else {
-            session.setAttribute("updateSuccess", false); // 设置updateSuccess为false
-            request.getRequestDispatcher("PersonalInfo.jsp").forward(request, response); // 更新失败，重定向到PersonalInfo.jsp
+            response.getWriter().println("修改个人信息失败，您所输的电话号码已被注册");
         }
     }
 

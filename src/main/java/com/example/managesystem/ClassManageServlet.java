@@ -31,7 +31,7 @@ public class ClassManageServlet extends HttpServlet {
         List<Class> classList = searchClasses(teacherId);
 
         // 存储查询结果到请求属性
-        request.setAttribute("classList", classList);
+        session.setAttribute("classList", classList);
 
         // 转发到ClassManage.jsp显示查询结果
         request.getRequestDispatcher("ClassManage.jsp").forward(request, response);

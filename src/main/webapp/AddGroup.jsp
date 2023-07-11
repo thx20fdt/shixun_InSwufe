@@ -19,23 +19,22 @@
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
             <div class="column">
-              <h3 class="ui black header"><%= request.getParameter("GID") %>小组</h3>
+              <h3 class="ui black header">新建小组</h3>
             </div>
           </div>
         </div>
         <div class="ui attached segment">
           <form id="groupForm" class="ui form">
             <div class="field">
-              <label>新添成员姓名</label>
+              <label>新建小组成员姓名</label>
               <input type="text" id="memberName" name="memberName" placeholder="输入姓名">
             </div>
             <div class="field">
-              <label>新添成员学号</label>
+              <label>新建小组成员学号</label>
               <input type="text" id="memberId" name="memberId" placeholder="输入学号">
             </div>
             <input type="hidden" name="AID" value="<%= request.getParameter("AID") %>">
-            <input type="hidden" name="GID" value="<%= request.getParameter("GID") %>">
-            <button class="ui blue button" type="button" id="submitButton">添加</button>
+            <button class="ui blue button" type="button" id="submitButton">创建</button>
           </form>
         </div>
       </div>
@@ -79,7 +78,6 @@
       var memberName = $('#memberName').val();
       var memberId = $('#memberId').val();
       var AID = $('input[name="AID"]').val();
-      var GID = $('input[name="GID"]').val();
 
       if (memberName == "" || memberId == "") {
         // 如果输入框中没有任何内容就点击了提交按钮，弹出提示框
@@ -90,13 +88,11 @@
         var formData = {
           memberName: memberName,
           memberId: memberId,
-          AID: AID,
-          GID: GID
+          AID: AID
         };
 
         // 提交表单数据到Servlet
-        // 提交表单数据到Servlet
-        $.post("AddStudentInGroupServlet", formData)
+        $.post("AddGroupServlet", formData)
                 .done(function(data) {
                   // 在点击表单中的提交按钮之后，根据Servlet返回的消息进行处理
                   if (data.indexOf("成功") !== -1) {
@@ -109,10 +105,9 @@
                       window.location.href = 'GroupViewServlet?AID=<%= request.getParameter("AID") %>';
                     });
                   } else {
-                    // 加入小组失败或其他错误
+                    // 新增小组失败或其他错误
                     $('#alertContent').text(data);
                     $('#alertModal').modal('show');
-
                   }
 
                   // 2秒后刷新页面
@@ -120,7 +115,6 @@
                     location.reload();
                   }, 2000);
                 });
-
       }
     });
   });

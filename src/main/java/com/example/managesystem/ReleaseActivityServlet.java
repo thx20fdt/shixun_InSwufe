@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,13 +26,15 @@ public class ReleaseActivityServlet extends HttpServlet {
         String activityName = request.getParameter("activityName");
         String activityContent = request.getParameter("activityContent");
         boolean groupable = Boolean.parseBoolean(request.getParameter("groupable"));
+        String activityStartTime = request.getParameter("activityStartTime");
+        String activityDeadline = request.getParameter("activityDeadline");
 
         // Generate new AID based on existing AIDs
         String aid = generateNewAID(cid);
 
         // Insert new activity into the database
-        insertActivity(aid, activityName, activityContent, groupable, cid);
-        request.setAttribute("CID",cid);
+        insertActivity(aid, activityName, activityContent, groupable, cid, activityStartTime, activityDeadline);
+        request.setAttribute("CID", cid);
         // Redirect back to the original page or display success message
         request.getRequestDispatcher("ManageActivityServlet").forward(request, response);
     }
@@ -68,20 +71,22 @@ public class ReleaseActivityServlet extends HttpServlet {
         }
     }
 
-    private void insertActivity(String aid, String activityName, String activityContent, boolean groupable, String cid)
-            throws ServletException {
+    private void insertActivity(String aid, String activityName, String activityContent, boolean groupable, String cid,
+                                String activityStartTime, String activityDeadline) throws ServletException {
         Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
             conn = DBUtil.getConnection();
-            String insertQuery = "INSERT INTO Activity (AID, ANAME, ACONTENT, type, CID) VALUES (?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO Activity (AID, ANAME, ACONTENT, CID, type, BEGINTIME, ENDTIME) VALUES (?, ?, ?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(insertQuery);
             pstmt.setString(1, aid);
             pstmt.setString(2, activityName);
             pstmt.setString(3, activityContent);
-            pstmt.setBoolean(4, groupable);
-            pstmt.setString(5, cid);
+            pstmt.setString(4, cid);
+            pstmt.setBoolean(5, groupable);
+            pstmt.setTimestamp(6, Timestamp.valueOf(activityStartTime));
+            pstmt.setTimestamp(7, Timestamp.valueOf(activityDeadline));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new ServletException("Database operation failed", e);

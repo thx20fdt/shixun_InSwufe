@@ -20,10 +20,9 @@ public class DeleteStudentServlet extends HttpServlet {
         String studentId = request.getParameter("sid");
         String classId = request.getParameter("cid");
 
-        // 在这里执行删除学生的操作，根据学生ID和班级ID进行数据库操作
-        // 假设使用JDBC进行删除操作，具体实现方式可能会有所不同
 
-        // 假设使用JDBC的示例代码
+
+
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -45,9 +44,9 @@ public class DeleteStudentServlet extends HttpServlet {
 
             // 根据删除结果向客户端返回相应的信息
             if (rowsAffected > 0) {
-                response.getWriter().write("success");
+                response.getWriter().write("删除成功");
             } else {
-                response.getWriter().write("failure");
+                response.getWriter().write("删除失败，该学生未在该组中");
             }
         } catch (SQLException e) {
             e.printStackTrace();

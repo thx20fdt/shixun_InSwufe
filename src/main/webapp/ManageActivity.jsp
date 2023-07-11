@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 2023/7/10
-  Time: 12:44
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +13,6 @@
 <jsp:include page="Tea.jsp" />
 
 <!--mid content-->
-
 
 <div class="m-padded-tb-larger m-content">
   <div class="ui container">
@@ -79,35 +71,43 @@
               </div>
             </div>
           </div>
-          <table class="ui celled table">
-            <thead>
-            <tr>
-              <th class="six wide">活动名称</th>
-              <th class="six wide">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="activity" items="${activityList}">
-              <tr>
-                <td>${activity.ANAME}</td>
-                <td>
-                  <button class="ui blue button" onclick="location.href='GroupViewServlet?AID=${activity.AID}'">查看分组</button>
-                  <button class="ui red button" onclick="deleteActivity('${activity.AID}')">删除活动</button>
-
-                </td>
-              </tr>
-            </c:forEach>
-            </tbody>
-          </table>
-
+          <c:choose>
+            <c:when test="${empty activityList}">
+              <div class="ui message" style="margin-top: 20px;">
+                <div class="header">
+                  提示信息
+                </div>
+                <p style="font-family: 'Verdana'; font-size: 16px; color: cornflowerblue; font-weight: bold;">您还未在本班发布活动！可以点击添加新活动按钮添加活动</p>
+              </div>
+            </c:when>
+            <c:otherwise>
+              <table class="ui celled table">
+                <thead>
+                <tr>
+                  <th class="six wide">活动名称</th>
+                  <th class="six wide">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="activity" items="${sessionScope.activityList}">
+                  <tr>
+                    <td>${activity.ANAME}</td>
+                    <td>
+                      <button class="ui blue button" onclick="location.href='GroupViewServlet?AID=${activity.AID}'">查看分组</button>
+                      <button class="ui red button" onclick="deleteActivity('${activity.AID}')">删除活动</button>
+                    </td>
+                  </tr>
+                </c:forEach>
+                </tbody>
+              </table>
+            </c:otherwise>
+          </c:choose>
         </div>
       </div>
       <!-- 这是右边部分结束  -->
     </div>
   </div>
 </div>
-
-
 
 <!-- foot content -->
 <footer class="ui inverted vertical segment">
@@ -143,7 +143,9 @@
       });
     }
   }
+  <c:if test="${not empty errorMessage}">
+  alert("${errorMessage}");
+  <c:set var="errorMessage" value="" scope="request" />
+  </c:if>
 </script>
-
-
 </html>

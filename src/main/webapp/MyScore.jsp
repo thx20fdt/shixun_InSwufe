@@ -70,19 +70,21 @@
             </div>
           </div>
         </div>
-        <div class="six wide column">
-          <form action="SearchScoreServlet" class="ui form" method="post">
-            <div class="ui action input">
-              <input type="text" placeholder="课程名称" name="CNAME">
-              <button class="ui blue button" type="submit">
-                <i class="search icon"></i>
-                查询
-              </button>
+        <div class="ui attached segment">
+          <div class="ui grid">
+            <div class="six wide column">
+              <form action="SearchScoreServlet" class="ui form" method="post">
+                <div class="ui action input">
+                  <input type="text" placeholder="课程名称" name="CNAME">
+                  <button class="ui blue button" type="submit">
+                    <i class="search icon"></i>
+                    查询
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-
-        <div class="ui grid">
+          </div>
+          <div class="ui grid">
             <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
               <h4 class="ui dividing header">已选课程成绩</h4>
             </div>
@@ -108,9 +110,10 @@
           </table>
         </div>
       </div>
-      <!-- 这是右边部分结束  -->
     </div>
+    <!-- 这是右边部分结束  -->
   </div>
+</div>
 </div>
 <!-- foot content -->
 <footer class="ui inverted vertical segment">
@@ -123,4 +126,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+</html>
+
+</body>
 </html>

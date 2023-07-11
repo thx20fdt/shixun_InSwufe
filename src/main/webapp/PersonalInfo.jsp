@@ -168,17 +168,40 @@
                         type: 'POST',
                         data: data,
                         success: function(response) {
-                          // 处理成功响应
-                          location.reload(); // 刷新当前页面
-                        },
-                        error: function() {
-                          // 处理错误响应
+                          if (response.indexOf("成功") !== -1) {
+                            // 成功
+                            $('#alertContent').text(response);
+                            $('#alertModal').modal('show');
+
+                            // 在点击确定按钮后更新页面
+                            $('#confirmButton').click(function() {
+                              location.reload();
+                            });
+                          } else {
+                            // 失败
+                            $('#alertContent').text(response);
+                            $('#alertModal').modal('show');
+
+                            $('#confirmButton').click(function() {
+                              location.reload();
+                            });
+                          }
                         }
                       });
                     });
-                  });
-                </script>
 
+                    $("#change-phone").click(function(e) {
+                      e.preventDefault();
+                      $("#new-phone-form").toggle();
+                    });
+
+                    $("#change-major").click(function(e) {
+                      e.preventDefault();
+                      $("#new-major-form").toggle();
+                    });
+                  });
+
+                </script>
               </div>
             </div>
           </div>
@@ -188,60 +211,20 @@
   </div>
 </div>
 
-<%
-  Object updateSuccessObj = session.getAttribute("updateSuccess");
-  if (updateSuccessObj != null) {
-    boolean updateSuccess = (boolean) updateSuccessObj;
-    if (updateSuccess) {
-%>
-<div class="ui small modal" id="success-modal">
-  <i class="close icon"></i>
-  <div class="header">
-    修改成功
-  </div>
-  <div class="content">
-    <p>你的修改已成功提交。</p>
-  </div>
-  <div class="actions">
-    <div class="ui positive right labeled icon button">
-      好的
-      <i class="checkmark icon"></i>
-    </div>
-  </div>
-</div>
-<script>
-  $(document).ready(function() {
-    $('#success-modal').modal('show');
-  });
-</script>
-<%
-} else {
-%>
-<div class="ui small modal" id="failure-modal">
-  <i class="close icon"></i>
-  <div class="header">
-    修改失败
-  </div>
-  <div class="content">
-    <p>很抱歉，修改未成功提交,请注意您所修改的内容是否合理。或者您所修改的手机号已被注册。</p>
 
+<div class="ui small modal" id="alertModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content" id="alertContent">
   </div>
   <div class="actions">
-    <div class="ui negative right labeled icon button">
-      好的
+    <div class="ui positive right labeled icon button" id="confirmButton">
+      确定
       <i class="checkmark icon"></i>
     </div>
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $('#failure-modal').modal('show');
-  });
-</script>
-<%
-    }
-  }
-%>
 
 
 <!-- foot content -->
@@ -255,22 +238,5 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#submit-changes').click(function() {
-      $('#success-modal').modal('show');
-    });
-  });
-  $(document).ready(function() {
-    $("#change-phone").click(function(e) {
-      e.preventDefault();
-      $("#new-phone-form").toggle();
-    });
-    $("#change-major").click(function(e) {
-      e.preventDefault();
-      $("#new-major-form").toggle();
-    });
-  });
-</script>
 </html>
-<!-- add -->
+

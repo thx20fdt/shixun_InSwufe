@@ -59,7 +59,7 @@
                 <div class="ui attached segment">
                     <div class="ui grid">
                         <div class="eight wide column">
-                            <form action="#" class="ui form" method="post">
+                            <form action="SearchGroupBySNAME" class="ui form" method="post">
                                 <div class="ui action input">
                                     <input type="text" placeholder="学生姓名" name="StudentName">
                                     <button class="ui blue button" type="submit">
@@ -71,38 +71,50 @@
                         </div>
                         <div class="four wide column">
                             <div class="ui right floated">
-                                <button class="ui green button" onclick="location.href='#'">
+                                <button class="ui green button" onclick="location.href='AddGroup.jsp?AID=${sessionScope.AID}'">
                                     <i class="plus icon"></i>
                                     新建小组
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th class="six wide">小组ID</th>
-                            <th class="six wide">小组成员</th>
-                            <th class="six wide">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="group" items="${groupList}">
+                    </div><c:choose>
+                    <c:when test="${empty sessionScope.groupList}">
+                        <div class="ui message" style="margin-top: 20px;">
+                            <div class="header">
+                                提示信息
+                            </div>
+                            <p style="font-family: 'Verdana'; font-size: 16px; color: cornflowerblue; font-weight: bold;">该活动还未分组</p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <table class="ui celled table">
+                            <thead>
                             <tr>
-                                <td>${group.GID}</td>
-                                <td>
-                                    <c:forEach var="member" items="${group.MEMBERS}" varStatus="memberStatus">
-                                        ${member}<c:if test="${not memberStatus.last}">, </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <button class="ui blue button" onclick="addMember('${group.GID}')">添加成员</button>
-                                    <button class="ui red button" onclick="deleteMember('${group.GID}')">删除成员</button>
-                                </td>
+                                <th class="six wide">小组ID</th>
+                                <th class="six wide">小组成员</th>
+                                <th class="six wide">操作</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="group" items="${sessionScope.groupList}">
+                                <tr>
+                                    <td>${group.GID}</td>
+                                    <td>
+                                        <c:forEach var="member" items="${group.MEMBERS}" varStatus="memberStatus">
+                                            ${member}<c:if test="${not memberStatus.last}">, </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td>
+                                        <button class="ui blue button" onclick="addMember('${group.GID}')">添加成员</button>
+                                        <button class="ui red button" onclick="deleteMember('${group.GID}')">删除成员</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:otherwise>
+                </c:choose>
+
 
 
                 </div>
