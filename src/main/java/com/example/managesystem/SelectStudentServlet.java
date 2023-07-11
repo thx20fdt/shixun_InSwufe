@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 public class SelectStudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         // 获取传递的CID参数
         String cid = request.getParameter("CID");
 
@@ -28,9 +30,11 @@ public class SelectStudentServlet extends HttpServlet {
         List<Student> studentList = getStudentListByClass(cid);
 
         // 将学生列表存储到请求属性中
-        request.setAttribute("studentList", studentList);
+
         HttpSession session = request.getSession();
         session.setAttribute("cid",cid);
+        session.setAttribute("studentList", studentList);
+
         // 转发到SelectStudent.jsp页面
         request.getRequestDispatcher("SelectStudent.jsp").forward(request, response);
     }

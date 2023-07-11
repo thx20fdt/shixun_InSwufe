@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteStudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         // 获取传递的学生ID（SID）和班级ID（CID）
         String studentId = request.getParameter("sid");
         String classId = request.getParameter("cid");
@@ -46,7 +48,7 @@ public class DeleteStudentServlet extends HttpServlet {
             if (rowsAffected > 0) {
                 response.getWriter().write("删除成功");
             } else {
-                response.getWriter().write("删除失败，该学生未在该组中");
+                response.getWriter().write("删除失败，该学生未在该班中");
             }
         } catch (SQLException e) {
             e.printStackTrace();

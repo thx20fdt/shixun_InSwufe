@@ -38,7 +38,7 @@
             <a class="item">
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
-            <a href="StuGroup.html" class="item">
+            <a class="item">
               <i class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">
@@ -88,7 +88,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="student" items="${studentList}">
+            <c:forEach var="student" items="${sessionScope.studentList}">
               <tr>
                 <td>${student.major}</td>
                 <td>${student.name}</td>
@@ -108,6 +108,24 @@
   </div>
 </div>
 
+<div class="ui small modal" id="alertModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content" id="alertContent">
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" id="confirmButton">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+    <div class="ui positive right labeled icon button" id="cancelButton">
+      取消
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- foot content -->
@@ -123,27 +141,36 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 <script>
   function deleteStudent(studentId, cid) {
-    if (confirm("确认删除该学生吗？")) {
+    $('#alertModal').modal('show'); // 显示提示模态框
+
+    // 确定按钮点击事件
+    $('#confirmButton').click(function() {
       $.ajax({
         type: "POST",
         url: "DeleteStudentServlet",
-        data: {sid: studentId, cid: cid}, // 传递两个值
+        data: {sid: studentId, cid: cid},
         success: function(response) {
-          // 根据删除结果进行相应的处理
-          if (response === "success") {
-            alert("删除成功！");
-            // 刷新学生列表
+          if (response.indexOf("成功") !== -1) {
+            $('#alertContent').text(response);
+            $('#alertModal').modal('hide'); // 隐藏提示模态框
             location.reload();
           } else {
             alert("删除失败！");
+            location.reload();
           }
         },
         error: function() {
           alert("请求失败，请重试！");
         }
       });
-    }
+    });
+
+    // 取消按钮点击事件
+    $('#cancelButton').click(function() {
+      $('#alertModal').modal('hide'); // 隐藏提示模态框
+    });
   }
+
 </script>
 </html>
 
