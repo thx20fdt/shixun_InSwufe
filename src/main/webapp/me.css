@@ -102,3 +102,158 @@ html, body {
     margin-bottom: 5px !important;
     margin-bottom: 5px !important;
 }
+.file-link {
+    color: black;
+    text-decoration: none;
+}
+.file-link:hover {
+    color: blue;
+}
+.file-link.active {
+    color: blue;
+    text-decoration: underline;
+}
+
+@charset "UTF-8";
+.m-padded-tb-mini{
+    padding-top:0.2em !important;
+    padding-bottom:0.2em !important;
+}
+.m-padded-tb-tiny{
+    padding-top:0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+.m-padded-tb-small{
+    padding-top:0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+.m-padded-tb{
+    padding-top:1em !important;
+    padding-bottom: 1em !important;
+}
+.m-padded-tb-large{
+    padding-top:2em !important;
+    padding-bottom: 2em !important;
+}
+.m-padded-tb-big{
+    padding-top:3em !important;
+    padding-bottom: 3em !important;
+}
+.m-padded-tb-huge{
+    padding-top:4em !important;
+    padding-bottom: 4em !important;
+}
+.m-padded-tb-massive{
+    padding-top:5em !important;
+    padding-bottom: 5em !important;
+}
+.m-text-thin{
+    font-weight:200 !important;
+}
+.m-text-spaced{
+    letter-spacing: 1px !important;
+}
+.m-text-lined{
+    line-height: 1.8;
+}
+.m-opacity-mini{
+    opacity: 0.6 !important;
+}
+.m-opacity-max{
+    opacity: 1.2 !important;
+}
+
+.m-inline-block{
+    display:inline-block !important;
+}
+
+.ui.vertical.fluid.tabular.menu .item:hover {
+    background-color: #2185d0;
+    color: white;
+}
+
+.custom-icon {
+    margin-left: 20px;
+}
+
+.header:hover {
+    color: blue !important;
+}
+
+html, body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+
+}
+
+.m-padded-tb-larger {
+    flex-grow: 1;
+    padding-bottom: 0 !important;
+}
+
+.m-content {
+    margin-top: 20px !important;  /* 根据你的需要调整这个值 */
+}
+
+.ui.list .item {
+    margin-bottom: 15px !important;
+}
+
+.info-text {
+    margin-top: 15px !important;
+}
+
+.styled-info {
+    margin-bottom: 15px !important;
+}
+
+.styled-link {
+    display: block;
+    margin-top: 5px !important;
+}
+
+.ui.medium.black.header {
+    margin-bottom: 5px !important;
+    margin-bottom: 5px !important;
+}
+.file-link {
+    color: black;
+    text-decoration: none;
+}
+.file-link:hover {
+    color: blue;
+}
+.file-link.active {
+    color: blue;
+    text-decoration: underline;
+}
+
+.card-content {
+    max-height: 200px;  /* 这是设置卡片内容区域的最大高度 */
+    overflow-y: auto;  /* 这是设置当内容超过最大高度时，内容应如何处理。auto意味着当需要时，显示滚动条 */
+    max-width: 200px;  /* 这是设置卡片内容区域的最大高度 */
+    overflow-x: auto;
+}
+
+.ui.card {
+    max-width: 90vw;  /* 设置卡片的最大宽度为视口宽度的90% */
+    width: auto;  /* 设置卡片的宽度根据内容进行自适应 */
+}
+
+.card-container {
+    max-width: 90vw;
+    width: auto;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5; /* 仿制ui card的阴影 */
+    border-radius: 0.28571429rem; /* 仿制ui card的边框圆角 */
+    padding: 1em; /* 添加内边距 */
+}
+
+
+
+
+
+
+
+

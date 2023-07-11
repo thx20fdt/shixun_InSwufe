@@ -7,10 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @WebServlet(name = "UpdateScore", value = "/UpdateScore")
 public class UpdateScoreServlet extends HttpServlet {
@@ -27,12 +24,21 @@ public class UpdateScoreServlet extends HttpServlet {
         String AID = request.getParameter("AID");
         String SID = request.getParameter("SID");
         float score = Float.parseFloat(request.getParameter("score"));
+        String updatesql ="Update Activity_submit set condition =? where SID = ? and AID=?";
         try {
             Connection con = DBUtil.getConnection();
             Statement statement = con.createStatement();
             String sql = "Update Activity_Submit set SCORE ="+score +" where SID ="+"'"+SID+"'"+"and AID="+"'"+AID+"'";
             statement.executeUpdate(sql);
             statement.close();
+
+            PreparedStatement ps = con.prepareStatement(updatesql);//更新批阅情况
+            ps.setString(1,"已批阅");
+            ps.setString(2,SID);
+            ps.setString(3,AID);
+            ps.executeUpdate();
+            ps.close();
+
             con.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -40,5 +46,6 @@ public class UpdateScoreServlet extends HttpServlet {
         request.setAttribute("AID",AID);
         request.setAttribute("SID",SID);
         request.getRequestDispatcher("/SubmitionDetail").forward(request,response);
+        
     }
 }

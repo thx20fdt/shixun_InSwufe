@@ -1,14 +1,20 @@
-<%@ page import="com.example.managesystem.course.course" %>
 <%--
   Created by IntelliJ IDEA.
   User: FX506H
-  Date: 2023/7/7
-  Time: 17:27
+  Date: 2023/7/11
+  Time: 15:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -68,28 +74,22 @@
             <div class="thirteen wide column">
                 <div class="ui top attached segment">
                     <div class="ui middle aligned four column grid">
-                        <div class="six wide column">
-                            <h3 class="ui black header">${course.CNAME}</h3>
+                        <div class="column">
+                            <h3 class="ui black header">${submit.ANAME}</h3>
+                            <p class="ui small grey text">作答时间从${activity.BEGINTIME}至${activity.ENDTIME}</p>
                         </div>
                     </div>
                 </div>
                 <div class="ui attached segment">
-                    <div class="ui grid">
-                        <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-                            <h4 class="ui dividing header">教师：${course.TNAME}  ${course.CLASSTIME}</h4>
-                        </div>
-                    </div>
-                    <div class="ui list">
-                        <c:forEach var="activity" items="${acs}">
-                        <div class="item" onclick="goTask('YourServletURL')" onkeydown="if(event.keyCode == 13){goTask('YourServletURL');}">
-                            <div class="content">
-                                <a href="PrepareActivityServlet?AID=${activity.AID}&ANAME=${activity.ANAME}" class="header" >${activity.ANAME}</a>
+                    <p>${activity.ACONTENT}</p>
+                    <form action="ActivitySubmit" method="post">
+                        <div class="ui form reply">
+                            <input type="hidden" id="hiddenField" name="AID" value="${activity.AID}">
+                            <div class="field">
+                                <textarea placeholder="你提交的内容" disabled>${submit.CONTENT}</textarea>
                             </div>
                         </div>
-                            </c:forEach>
-                        <!-- 更多作业 -->
-                    </div>
-                    <!-- 更多课程 -->
+                    </form>
                 </div>
             </div>
             <!-- 这是右边部分结束  -->
@@ -109,9 +109,5 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<script>
-    function goTask(url) {
-        window.location.href = url;
-    }
-</script>
 </html>
+</script>

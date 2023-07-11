@@ -20,19 +20,11 @@ public class SubmitionDetailServlet extends HttpServlet {
         String AID = request.getParameter("AID");
         String SID = request.getParameter("SID");
         submit submit = new submit();
-        String updatesql ="Update Activity_submit set condition =? where SID = ? and AID=?";
+
         String sql = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME,Activity_Submit.GID, CONVERT(nvarchar(max), Activity_Submit.CONTENT),Activity.ACONTENT ,Activity_Submit.SCORE,Activity_Submit.CONDITION from Activity_Submit ,Activity ,Student where Activity_Submit.AID ="+"'"+AID+"'"+"and Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.SID ="+"'"+SID+"'";
 
         try {
             Connection con = DBUtil.getConnection();//建立连接
-
-            PreparedStatement ps = con.prepareStatement(updatesql);//更新批阅情况
-            ps.setString(1,"已批阅");
-            ps.setString(2,SID);
-            ps.setString(3,AID);
-            ps.executeUpdate();
-            ps.close();
-
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql); //执行查询
 

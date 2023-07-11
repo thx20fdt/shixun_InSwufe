@@ -77,10 +77,10 @@
             <div class="six wide column">
               <form action="SearchClassByCNAMEServlet" class="ui form" method="post">
                 <div class="ui action input">
-                  <input type="text" placeholder="课程名称" name="CNAME">
+                  <input type="text" placeholder="按课程名称搜索添加课程" name="CNAME">
                   <button class="ui blue button" type="submit">
                     <i class="search icon"></i>
-                    查询
+                    搜索
                   </button>
                 </div>
               </form>
@@ -88,10 +88,10 @@
             <div class="six wide column" style="margin-left: 100px; margin-right: 20px;">
               <form action="SearchClassByTNAME" class="ui form" method="post">
                 <div class="ui action input">
-                  <input type="text" placeholder="任课教师" name="TNAME">
+                  <input type="text" placeholder="按任课教师搜索添加课程" name="TNAME">
                   <button class="ui blue button" type="submit">
                     <i class="search icon"></i>
-                    查询
+                    搜索
                   </button>
                 </div>
               </form>

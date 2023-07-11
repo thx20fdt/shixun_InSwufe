@@ -87,7 +87,15 @@
                         <div class="field">
                             <textarea name="CONTENT" placeholder="输入你的作答"></textarea>
                         </div>
+                        <div class="field">
+                            <input type="file" id="fileUpload" multiple style="display:none">
+                            <label for="fileUpload" class="ui button">
+                                <i class="file icon"></i>上传附件
+                            </label>
+                            <div id="fileList"></div>
+                        </div>
                         <input type="hidden" id="hiddenField" name="AID" value="${activity.AID}">
+                        <input type="hidden" name="CID" value="${activity.CID}">
                         <button class="ui blue labeled submit icon button" type="submit">
                             <i class="icon edit"></i> 提交
                         </button>
@@ -113,3 +121,56 @@
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 </html>
+<script>
+    $('#fileUpload').on('change', function() {
+        // 获取文件列表
+        var files = $(this)[0].files;
+        // 清空显示文件列表的元素
+        $('#fileList').empty();
+        // 遍历每个文件
+        $.each(files, function(i, file) {
+            // 创建一个新的文件名元素
+            var fileElem = $('<a>', {
+                text: ' 上传的文件: ' + file.name,
+                href: '#',
+                class: 'file-link',
+                onclick: 'previewFile(event, ' + i + ')',
+                onmouseover: 'highlightFile(event, true)',
+                onmouseout: 'highlightFile(event, false)'
+            });
+            // 添加新元素到文件列表中
+            $('#fileList').append(fileElem);
+            $('#fileList').append('<br>'); // 添加换行
+        });
+    });
+    function previewFile(event, index) {
+        event.preventDefault();
+        // 获取文件列表
+        var files = $('#fileUpload')[0].files;
+        if (files.length > index) {
+            var file = files[index];
+            // 以下只对图片文件预览有效
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                window.open(e.target.result, '_blank');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    function highlightFile(event, highlight) {
+        var color = highlight ? 'blue' : 'black';
+        $(event.target).css('color', color);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

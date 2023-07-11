@@ -29,7 +29,7 @@ public class SearchClassByTNAME extends HttpServlet {
         List<course> courseList = new ArrayList<>();
         try {
             Connection con = DBUtil.getConnection();
-            String sql = "select Class.CID ,Class.CNAME,Teacher.NAME,Class.CLASSTIME from Class,Teacher where Class.TID = Teacher.TID and Teacher.NAME="+"'"+TNAME+"'";
+            String sql = "select Class.CID ,Class.CNAME,Teacher.NAME,Class.CLASSTIME from Class,Teacher where Class.TID = Teacher.TID and Teacher.NAME LIKE"+"'%"+TNAME+"%'";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
