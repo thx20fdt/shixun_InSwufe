@@ -19,17 +19,16 @@ import java.util.List;
 
 @WebServlet("/ClassManageServlet")
 public class ClassManageServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        // 获取表单参数
-        String courseName = request.getParameter("courseName");
+
 
         // 从会话中获取TID
         HttpSession session = request.getSession();
         String teacherId = (String) session.getAttribute("id");
 
         // 查询班级信息
-        List<Class> classList = searchClasses(courseName, teacherId);
+        List<Class> classList = searchClasses(teacherId);
 
         // 存储查询结果到请求属性
         request.setAttribute("classList", classList);
@@ -38,7 +37,7 @@ public class ClassManageServlet extends HttpServlet {
         request.getRequestDispatcher("ClassManage.jsp").forward(request, response);
     }
 
-    private List<Class> searchClasses(String courseName, String teacherId) {
+    private List<Class> searchClasses( String teacherId) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -51,13 +50,13 @@ public class ClassManageServlet extends HttpServlet {
             // 准备SQL语句
             String sql = "SELECT CID, CNAME, CLASSTIME " +
                     "FROM Class " +
-                    "WHERE TID = ? AND CNAME = ?";
+                    "WHERE TID = ?";
 
             statement = connection.prepareStatement(sql);
 
             // 设置参数值
             statement.setString(1, teacherId);
-            statement.setString(2, courseName);
+
 
             // 执行查询操作
             resultSet = statement.executeQuery();

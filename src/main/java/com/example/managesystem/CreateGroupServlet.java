@@ -29,6 +29,15 @@ public class CreateGroupServlet extends HttpServlet {
         // 验证学号和电话是否匹配
         // 验证学号和电话是否匹配
         if (validateStudent(memberId, memberPhone)) {
+            // 判断该门活动是否可创建小组
+            if (!isGroupCreatable(activityId)) {
+                // 设置失败消息并返回给前端，该活动不可创建小组
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"success\": false, \"message\": \"该活动不可创建小组\"}");
+                return;
+            }
+
             // 判断学生是否选了该门活动对应的课程
             if (isStudentEnrolled(memberId, activityId)) {
                 // 判断学生是否已经在操作者的小组中
@@ -141,6 +150,43 @@ public class CreateGroupServlet extends HttpServlet {
 
         return hasGroup;
     }
+    private boolean isGroupCreatable(String activityId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean isCreatable = false;
+
+        try {
+            // 获取数据库连接
+            connection = DBUtil.getConnection();
+
+            // 准备SQL语句
+            String sql = "SELECT type FROM Activity WHERE AID = ?";
+            statement = connection.prepareStatement(sql);
+
+            // 设置参数值
+            statement.setString(1, activityId);
+
+            // 执行查询操作
+            resultSet = statement.executeQuery();
+
+            // 获取活动类型
+            if (resultSet.next()) {
+                boolean type = resultSet.getBoolean("type");
+                isCreatable = type;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接、Statement对象和ResultSet对象
+            DBUtil.closeResultSet(resultSet);
+            DBUtil.closeStatement(statement);
+            DBUtil.closeConnection(connection);
+        }
+
+        return isCreatable;
+    }
+
 
 
     private String findGroupByStudent(String activityId, String studentSid) {
