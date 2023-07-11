@@ -19,7 +19,7 @@ public class IsReadServlet extends HttpServlet {
         String SID = request.getParameter("SID");
         String AID = request.getParameter("AID");
         String sql = "select condition from activity_submit where SID=? and aid = ?";
-        String sql1 = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME,Activity_Submit.GID,  Activity_Submit.CONTENT,Activity.ACONTENT ,Activity_Submit.SCORE,Activity_Submit.CONDITION from Activity_Submit ,Activity ,Student where Activity_Submit.AID ="+"'"+AID+"'"+"and Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.SID ="+"'"+SID+"'";
+        String sql1 = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME, Activity_Submit.CONTENT,Activity.ACONTENT ,Activity_Submit.SCORE,Activity_Submit.CONDITION ,Activity_Submit.GID from Activity_Submit ,Activity ,Student where Activity_Submit.AID ="+"'"+AID+"'"+"and Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.SID ="+"'"+SID+"'";
         submit submit = new submit();
 
         try {
@@ -33,15 +33,20 @@ public class IsReadServlet extends HttpServlet {
                     Statement stmt = con.createStatement();
                     ResultSet rs1 = stmt.executeQuery(sql1); //执行查询
                     if (rs.next()){
-                        submit.setAID(rs1.getString(1));
-                        submit.setANAME(rs1.getString(2));
-                        submit.setSID(rs1.getString(3));
-                        submit.setSNAME(rs1.getString(4));
-                        submit.setGID(rs1.getString(5));
-                        submit.setCONTENT(rs1.getString(6));
-                        submit.setACONTENT(rs1.getString(7));
-                        submit.setSCORE(rs1.getDouble(8));
-                        submit.setCONDITION(rs1.getString(9));
+                        submit.setAID(rs1.getString("AID"));
+                        submit.setANAME(rs1.getString("ANAME"));
+                        submit.setSID(rs1.getString("SID"));
+                        submit.setSNAME(rs1.getString("NAME"));
+                        submit.setCONTENT(rs1.getString("CONTENT"));
+                        submit.setACONTENT(rs1.getString("ACONTENT"));
+                        submit.setSCORE(rs1.getDouble("SCORE"));
+                        submit.setCONDITION(rs1.getString("CONDITION"));
+                        if(rs1.getString("GID").isEmpty()){
+                            submit.setGID("未分组");
+
+                        }else{
+                            submit.setGID(rs1.getString("GID"));
+                        }
                     }
                     rs.close();
                     stmt.close();

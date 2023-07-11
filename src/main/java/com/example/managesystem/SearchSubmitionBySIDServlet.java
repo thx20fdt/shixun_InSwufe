@@ -21,60 +21,46 @@ public class SearchSubmitionBySIDServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String SID = request.getParameter("SID");
+        request.setCharacterEncoding("utf-8");
+        String SNAME = request.getParameter("SNAME");
         String TID =(String) request.getSession().getAttribute("id");
-        List<String> MyCIDs = new ArrayList<>();
-        List<submit> submitions =new ArrayList<>();
+        String sql ="Select cid from class where tid =? ";
+        String sql1 ="select class.cname,Activity_Submit.sid,Student.name,Activity.aname,Activity_Submit.score from class,student,activity_submit,Activity where  class.cid=Activity.CID and Activity.aid=Activity_Submit.AID and student.sid = activity_submit.sid and activity.cid=? and Student.NAME=?";
+        List<submit> submitions = new ArrayList<>();
+        List<String> CIDS = new ArrayList<>();
+
         try {
             Connection con = DBUtil.getConnection();
-            String sql0 = "select CID from Class where TID = ?";
-            PreparedStatement ps0 = con.prepareStatement(sql0);
-            ps0.setString(1,TID);
-            ResultSet rs0 = ps0.executeQuery();
-            while(rs0.next()){
-                String CID = rs0.getString(1);
-                MyCIDs.add(CID);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,TID);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String CID = rs.getString(1);
+                CIDS.add(CID);
             }
-            for(String cid:MyCIDs){
-                Statement stmt = con.createStatement();
-                String sql = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME,Activity_Submit.GID, CONVERT(nvarchar(max), Activity_Submit.CONTENT),Activity.ACONTENT ,Activity_Submit.SCORE from Activity_Submit ,Activity ,Student where Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.SID =" + "'" + SID + "'"+"and cid="+"'"+cid+"'";
-                ResultSet rs = stmt.executeQuery(sql);
-                while (rs.next()) {
+            rs.close();
+            ps.close();
+
+            for(String cid :CIDS){
+                PreparedStatement ps1 = con.prepareStatement(sql1);
+                ps1.setString(1,cid);
+                ps1.setString(2,SNAME);
+                ResultSet rs1 = ps1.executeQuery();
+                while(rs1.next()){
                     submit submit = new submit();
-                    submit.setAID(rs.getString(1));
-                    submit.setANAME(rs.getString(2));
-                    submit.setSID(rs.getString(3));
-                    submit.setSNAME(rs.getString(4));
-                    submit.setGID(rs.getString(5));
-                    submit.setCONTENT(rs.getString(6));
-                    submit.setACONTENT(rs.getString(7));
-                    submit.setSCORE(rs.getDouble(8));
+                    submit.setCNAME(rs1.getString(1));
+                    submit.setSID(rs1.getString(2));
+                    submit.setSNAME(rs1.getString(3));
+                    submit.setANAME(rs1.getString(4));
+                    submit.setSCORE(rs1.getDouble(5));
                     submitions.add(submit);
                 }
-                rs.close();
-                stmt.close();
+                rs1.close();
+                ps1.close();
             }
-
-
-//            Statement stmt = con.createStatement();
-//            String sql = "select Activity_Submit.AID,Activity.ANAME, Activity_Submit.SID, Student.NAME,Activity_Submit.GID, CONVERT(nvarchar(max), Activity_Submit.CONTENT),Activity.ACONTENT ,Activity_Submit.SCORE from Activity_Submit ,Activity ,Student where Activity_Submit.AID = Activity.AID and Activity_Submit.SID = Student.SID and Activity_Submit.SID =" + "'" + SID + "'";
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while (rs.next()) {
-//                submit submit = new submit();
-//                submit.setAID(rs.getString(1));
-//                submit.setANAME(rs.getString(2));
-//                submit.setSID(rs.getString(3));
-//                submit.setSNAME(rs.getString(4));
-//                submit.setGID(rs.getString(5));
-//                submit.setCONTENT(rs.getString(6));
-//                submit.setACONTENT(rs.getString(7));
-//                submit.setSCORE(rs.getDouble(8));
-//                submitions.add(submit);
-
-
             con.close();
-            request.setAttribute("submitions", submitions);
-            request.getRequestDispatcher("StuScore.jsp").forward(request, response);
+            request.setAttribute("submitions",submitions);
+            request.getRequestDispatcher("StuScore.jsp").forward(request,response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -8,24 +8,23 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "SearchSubmitionByAID", value = "/SearchSubmitionByAID")
-public class SearchSubmitionByAIDServlet extends HttpServlet {
+@WebServlet(name = "StuScore", value = "/StuScore")
+public class StuScoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String ANAME = request.getParameter("ANAME");
         String TID =(String) request.getSession().getAttribute("id");
         String sql ="Select cid from class where tid =? ";
-        String sql1 ="select class.cname,Activity_Submit.sid,Student.name,Activity.aname,Activity_Submit.score from class,student,activity_submit,Activity where  class.cid=Activity.CID and Activity.aid=Activity_Submit.AID and student.sid = activity_submit.sid and activity.cid=? and Activity.ANAME=?";
+        String sql1 ="select class.cname,Activity_Submit.sid,Student.name,Activity.aname,Activity_Submit.score from class,student,activity_submit,Activity where  class.cid=Activity.CID and Activity.aid=Activity_Submit.AID and student.sid = activity_submit.sid and activity.cid=? ";
         List<submit> submitions = new ArrayList<>();
         List<String> CIDS = new ArrayList<>();
 
@@ -44,7 +43,6 @@ public class SearchSubmitionByAIDServlet extends HttpServlet {
             for(String cid :CIDS){
                 PreparedStatement ps1 = con.prepareStatement(sql1);
                 ps1.setString(1,cid);
-                ps1.setString(2,ANAME);
                 ResultSet rs1 = ps1.executeQuery();
                 while(rs1.next()){
                     submit submit = new submit();
@@ -64,5 +62,10 @@ public class SearchSubmitionByAIDServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

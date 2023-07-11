@@ -17,9 +17,22 @@ public class submit {
 
     public String CONDITION;
 
+    public  String CNAME;
+
+    public String getCNAME() {
+        return CNAME;
+    }
+
+    public void setCNAME(String CNAME) {
+        this.CNAME = CNAME;
+    }
+
     public String getCONDITION() {
         return CONDITION;
     }
+
+
+
 
     public void setCONDITION(String CONDITION) {
         this.CONDITION = CONDITION;

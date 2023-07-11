@@ -62,7 +62,7 @@
                             <form class="ui form" action="SearchSubmitionBySID" method="post">
                                 <div class="fields">
                                     <div class="field">
-                                        <input type="text" placeholder="按学生学号查询" NAME="SID">
+                                        <input type="text" placeholder="按学生姓名查询" NAME="SNAME">
                                     </div>
                                     <div class="field">
                                         <button class="ui blue button" type="submit">
@@ -78,7 +78,7 @@
                             <form class="ui form" action="SearchSubmitionByAID" method="post">
                                 <div class="fields">
                                     <div class="field">
-                                        <input type="text" placeholder="按活动号查询" NAME="AID">
+                                        <input type="text" placeholder="按活动名称查询" NAME="ANAME">
                                     </div>
                                     <div class="field">
                                         <button class="ui blue button" type="submit">
@@ -93,7 +93,7 @@
                     </div>
                     <div class="ui grid">
                         <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-                            <h4 class="ui dividing header">学生提交情况</h4>
+                            <h4 class="ui dividing header">学生成绩情况</h4>
                         </div>
                     </div>
                     <table class="ui celled table">
@@ -102,8 +102,8 @@
                             <th class="two wide">姓名</th>
                             <th class="three wide">学号</th>
                             <th class="three wide">活动名称</th>
+                            <th class="two wide">课程名称</th>
                             <th class="two wide">成绩</th>
-                            <th class="two wide">平均成绩</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -112,8 +112,8 @@
                                 <td>${submit.SNAME}</td>
                                 <td>${submit.SID}</td>
                                 <td>${submit.ANAME}</td>
+                                <td>${submit.CNAME}</td>
                                 <td>${submit.SCORE}</td>
-                                <td>${submit.AVGSCORE}</td>
                             </tr>
                         </c:forEach>
                         </tbody>
