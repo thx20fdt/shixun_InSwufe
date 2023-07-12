@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,17 +42,17 @@
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
             <div class="six wide column">
-              <h3 class="ui black header">班级信息管理</h3>
+              <h3 class="ui black header">班级成员管理</h3>
             </div>
           </div>
         </div>
         <div class="ui attached segment">
           <div class="ui grid">
             <div class="eight wide column">
-              <form action="AddStudentIntoMyClass" class="ui form" method="post">
+              <form id="addStudentForm" class="ui form" method="post">
                 <div class="ui action input">
                   <input type="text" placeholder="学生学号" name="SID">
-                  <button class="ui blue button" id="submit-add" type="submit">
+                  <button class="ui blue button" id="submit-add" type="button">
                     <i class="search icon"></i>
                     添加学生
                   </button>
@@ -67,16 +67,35 @@
   </div>
 </div>
 
-<div class="ui small modal" id="alertModal">
+<div class="ui small modal" id="addConfirmationResultModal">
   <div class="header">
     提示
   </div>
-  <div class="content" id="alertContent">
+  <div class="content" id="addConfirmationResultContent">
   </div>
   <div class="actions">
-    <div class="ui positive right labeled icon button" id="confirmButton">
+    <div class="ui positive right labeled icon button" id="confirmResultButton">
       确定
       <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<div class="ui small modal" id="addConfirmationModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content">
+    确定要添加该学生吗？
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" id="confirmAddButton">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+    <div class="ui negative right labeled icon button" id="cancelAddButton">
+      取消
+      <i class="close icon"></i>
     </div>
   </div>
 </div>
@@ -85,56 +104,57 @@
 <footer class="ui inverted vertical segment">
   <div class="ui center aligned container">
     <div class="ui inverted section divider">
-      <p class="m-text-thin m-opacity-mini">Copyright © 2022-2023 Designed by T4_Group</p>
+      <p class="m-text-thin m-opacity-mini">Designed by T4_Group</p>
     </div>
   </div>
 </footer>
-</body>
-<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.js"></script>
 <script>
-
-
   $(document).ready(function() {
-    $('#submit-add').click(function(e) {
-      e.preventDefault();
+    function showAddConfirmation() {
+      $('#addConfirmationModal').modal('show');
+    }
 
-      var inputValue = $(this).closest('form').find('input[name="SID"]').val();
+    $('#submit-add').click(function() {
+      showAddConfirmation();
+    });
 
-      if (inputValue) {
-        $.ajax({
-          type: 'POST',
-          url: 'AddStudentIntoMyClass',
-          data: $(this).closest('form').serialize(),
-          success: function(response) {
-            if (response.indexOf("成功") !== -1){
-            // Handle the server response here
-            $('#alertContent').text(response);
-            $('#alertModal').modal('show');
-            $('#confirmButton').click(function() {
-              location.reload();
+    $('#confirmAddButton').click(function() {
+      $('#addConfirmationModal').modal('hide');
+      var formData = $('#addStudentForm').serialize();
+
+      $.ajax({
+        type: 'POST',
+        url: 'AddStudentIntoMyClassServlet',
+        data: formData,
+        success: function(response) {
+          if (response.indexOf("成功") !== -1) {
+            $('#addConfirmationResultContent').text(response);
+            $('#addConfirmationResultModal').modal('show');
+
+            $('#confirmResultButton').click(function() {
+              window.location.href = 'SelectStudentServlet?CID=<%= session.getAttribute("cid") %>';
             });
-            }
-            else{
-              $('#alertContent').text(response);
-              $('#alertModal').modal('show');
-              $('#confirmButton').click(function() {
-                location.reload();
-              });
-            }
-          },
-          error: function() {
-            // Handle the failed request
-            console.log('AJAX request failed');
-            $('#confirmButton').click(function() {
-              location.reload();
-            });
+          } else {
+            $('#addConfirmationResultContent').text(response);
+            $('#addConfirmationResultModal').modal('show');
           }
-        });
-      }
+
+          setTimeout(function() {
+            location.reload();
+          }, 2000);
+        },
+        error: function() {
+          console.log('AJAX 请求失败');
+        }
+      });
+    });
+
+    $('#cancelAddButton').click(function() {
+      $('#addConfirmationModal').modal('hide');
     });
   });
-
 </script>
 </html>
-

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理您的教学班</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="./static/css/me.css">
+    <link rel="stylesheet" href="./me.css">
 </head>
 <body>
 <jsp:include page="Tea.jsp" />
@@ -38,7 +38,7 @@
                         <a class="item">
                             <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
                         </a>
-                        <a href="StuGroup.html" class="item">
+                        <a class="item">
                             <i class="users icon" style="margin-right: 5px;"></i>小组
                         </a>
                         <a class="item">

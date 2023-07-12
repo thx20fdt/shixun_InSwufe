@@ -6,7 +6,7 @@
   Time: 11:25
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +52,7 @@
         <div class="ui top attached segment">
           <div class="ui middle aligned four column grid">
             <div class="six wide column">
-              <h3 class="ui black header">班级信息管理</h3>
+              <h3 class="ui black header">班级成员管理</h3>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
                 <td>${student.name}</td>
                 <td>${student.sid}</td>
                 <td>
-                  <button class="ui red button" onclick="deleteStudent('${student.sid}', '${sessionScope.cid}')">删除</button>
+                  <button class="ui red button" onclick="showDeleteConfirmation('${student.sid}', '${sessionScope.cid}')">删除</button>
                 </td>
               </tr>
             </c:forEach>
@@ -108,24 +108,57 @@
   </div>
 </div>
 
-<div class="ui small modal" id="alertModal">
+<!-- 确认删除提示框 -->
+<div class="ui small modal" id="confirmModal">
   <div class="header">
     提示
   </div>
   <div class="content" id="alertContent">
+    您确定要删除该学生吗？
   </div>
   <div class="actions">
-    <div class="ui positive right labeled icon button" id="confirmButton">
+    <div class="ui positive right labeled icon button" id="confirmDeleteButton">
       确定
       <i class="checkmark icon"></i>
     </div>
-    <div class="ui positive right labeled icon button" id="cancelButton">
+    <div class="ui positive right labeled icon button" id="cancelDeleteButton">
       取消
       <i class="checkmark icon"></i>
     </div>
   </div>
 </div>
 
+<!-- 删除成功提示框 -->
+<div class="ui small modal" id="deleteSuccessModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content" id="deleteSuccessContent">
+    您已成功删除该学生！
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" id="confirmDeleteSuccessButton">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<!-- 删除失败提示框 -->
+<div class="ui small modal" id="deleteFailureModal">
+  <div class="header">
+    提示
+  </div>
+  <div class="content" id="deleteFailureContent">
+    删除失败
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" id="confirmDeleteFailureButton">
+      确定
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
 
 
 <!-- foot content -->
@@ -140,36 +173,51 @@
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 <script>
-  function deleteStudent(studentId, cid) {
-    $('#alertModal').modal('show'); // 显示提示模态框
+  function showDeleteConfirmation(studentId, classId) {
+    $('#confirmModal').modal('show'); // 显示确认对话框
 
-    // 确定按钮点击事件
-    $('#confirmButton').click(function() {
-      $.ajax({
-        type: "POST",
-        url: "DeleteStudentServlet",
-        data: {sid: studentId, cid: cid},
-        success: function(response) {
-          if (response.indexOf("成功") !== -1) {
-            $('#alertContent').text(response);
-            $('#alertModal').modal('hide'); // 隐藏提示模态框
-            location.reload();
-          } else {
-            alert("删除失败！");
-            location.reload();
-          }
-        },
-        error: function() {
-          alert("请求失败，请重试！");
-        }
-      });
+    // 确认删除按钮点击事件
+    $('#confirmDeleteButton').click(function() {
+      deleteStudent(studentId, classId);
     });
-
     // 取消按钮点击事件
-    $('#cancelButton').click(function() {
-      $('#alertModal').modal('hide'); // 隐藏提示模态框
+    $('#cancelDeleteButton').click(function() {
+      $('#confirmModal').modal('hide'); // 隐藏提示模态框
     });
   }
+
+  function deleteStudent(studentId, classId) {
+    $.ajax({
+      type: 'POST',
+      url: 'DeleteStudentServlet',
+      data: { sid: studentId, cid: classId },
+      success: function(response) {
+        if (response.indexOf("成功") !== -1) {
+          // 删除成功
+          $('#deleteSuccessContent').text('您已成功删除该学生！');
+          $('#deleteSuccessModal').modal('show');
+          $('#confirmDeleteSuccessButton').click(function() {
+            window.location.href = 'SelectStudentServlet?CID=${sessionScope.cid}';
+          });
+        } else {
+          // 删除失败
+          $('#deleteFailureContent').text('删除失败');
+          $('#deleteFailureModal').modal('show');
+        }
+        $('#confirmDeleteFailureButton').click(function() {
+          location.reload();
+        });
+      },
+      error: function() {
+        // 请求失败
+        $('#deleteFailureContent').text('请求失败，请重试！');
+        $('#deleteFailureModal').modal('show');
+      }
+    });
+  }
+
+
+
 
 </script>
 </html>

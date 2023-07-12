@@ -39,7 +39,7 @@
             <a class="item">
               <i class="lightbulb icon" style="margin-right: 5px;"></i>创作
             </a>
-            <a href="MyGroupServlet" class="item">
+            <a class="item">
               <i class="users icon" style="margin-right: 5px;"></i>小组
             </a>
             <a class="item">

@@ -13,12 +13,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet("/AddStudentIntoMyClass")
+@WebServlet("/AddStudentIntoMyClassServlet")
 public class AddStudentIntoMyClassServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         // 获取传递的学生ID（SID）
         String studentId = request.getParameter("SID");
+        String classId = (String) request.getSession().getAttribute("cid");
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -39,20 +42,35 @@ public class AddStudentIntoMyClassServlet extends HttpServlet {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // 学生存在，可以将学生添加到班级
-                String classId = (String) request.getSession().getAttribute("cid"); // 从Session获取班级ID
+                // 学生存在
+                // 从Session获取班级ID
 
-                // 插入学生ID和班级ID到Student_Class表
-                String insertSql = "INSERT INTO Student_Class (SID, CID) VALUES (?, ?)";
-                statement = connection.prepareStatement(insertSql);
+                // 检查学生是否已经选了该门课程
+                String checkSql = "SELECT * FROM Student_Class WHERE SID = ? AND CID = ?";
+                statement = connection.prepareStatement(checkSql);
                 statement.setString(1, studentId);
                 statement.setString(2, classId);
-                statement.executeUpdate();
+                resultSet = statement.executeQuery();
 
-                response.getWriter().write("添加学生成功！");
+                if (resultSet.next()) {
+                    // 学生已经选了该门课程
+                    response.getWriter().write("该学生已在您的班级中！");
+
+                } else {
+                    // 插入学生ID和班级ID到Student_Class表
+                    String insertSql = "INSERT INTO Student_Class (SID, CID) VALUES (?, ?)";
+                    statement = connection.prepareStatement(insertSql);
+                    statement.setString(1, studentId);
+                    statement.setString(2, classId);
+                    statement.executeUpdate();
+
+                    response.getWriter().write("该学生成功加入您的班级！");
+
+                }
             } else {
                 // 学生不存在
                 response.getWriter().write("没有此学生！");
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

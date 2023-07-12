@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/MyScoreServlet")
 public class MyScoreServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String studentSid = (String) session.getAttribute("id");
 

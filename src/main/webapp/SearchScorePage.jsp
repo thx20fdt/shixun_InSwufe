@@ -84,7 +84,7 @@
 
         <div class="ui grid">
           <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-            <h4 class="ui dividing header">已选课程成绩</h4>
+            <h4 class="ui dividing header">${requestScope.CNAME}课程成绩</h4>
           </div>
         </div>
         <table class="ui celled table">

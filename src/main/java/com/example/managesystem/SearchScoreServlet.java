@@ -24,19 +24,21 @@ public class SearchScoreServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         // 获取要查询的课程名称
         String courseName = request.getParameter("CNAME");
+        HttpSession session = request.getSession();
+        String studentSid = (String) session.getAttribute("id");
 
         // 执行查询操作
-        List<Score> scoreList = getScoresByCourseName(courseName);
+        List<Score> scoreList = getScoresByCourseName(courseName,studentSid);
 
-        // 将查询结果设置到request属性中
-        HttpSession session = request.getSession();
+
         session.setAttribute("scoreList", scoreList);
+        request.setAttribute("CNAME",courseName);
 
         // 转发到显示成绩的页面
         request.getRequestDispatcher("SearchScorePage.jsp").forward(request, response);
     }
 
-    private List<Score> getScoresByCourseName(String courseName) {
+    private List<Score> getScoresByCourseName(String courseName,String studentSid) {
         List<Score> scoreList = new ArrayList<>();
 
         Connection connection = null;
@@ -52,11 +54,13 @@ public class SearchScoreServlet extends HttpServlet {
                     "FROM Activity_Submit s " +
                     "JOIN Activity a ON s.AID = a.AID " +
                     "JOIN Class c ON a.CID = c.CID " +
-                    "WHERE c.CNAME = ?";
+                    "WHERE c.CNAME = ? AND s.SID = ?";
             statement = connection.prepareStatement(sql);
 
             // 设置参数值
             statement.setString(1, courseName);
+            statement.setString(2, studentSid);
+
 
             // 执行查询操作
             resultSet = statement.executeQuery();
