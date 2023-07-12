@@ -117,6 +117,7 @@
             <div class="row">
               <div class="sixteen wide column">
                 <button class="ui primary button" id="submit-changes" type="button">提交修改</button>
+                <button class="ui red button" id="submit-logout" type="button">退出登录</button>
 
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
@@ -200,6 +201,21 @@
   </div>
 </footer>
 </body>
+<script>
+  $(document).ready(function() {
+    $('#submit-logout').click(function() {
+      // 发送退出登录请求
+      $.ajax({
+        url: 'LogoutServlet',
+        type: 'GET',
+        success: function(response) {
+          // 重定向到登录页面
+          window.location.href = 'Login.jsp';
+        }
+      });
+    });
+  });
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 </html>
