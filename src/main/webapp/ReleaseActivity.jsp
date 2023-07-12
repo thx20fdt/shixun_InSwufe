@@ -59,7 +59,7 @@
             </div>
             <div class="field">
               <label>活动内容</label>
-              <textarea name="activityContent" placeholder="输入活动内容" required></textarea>
+              <textarea  wrap="hard" name="activityContent" placeholder="输入活动内容" required></textarea>
             </div>
             <div class="fields">
               <div class="eight wide field">

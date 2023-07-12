@@ -59,7 +59,7 @@
               <h4 class="ui black header">活动内容</h4>
               <div class="ui form reply" id="gradeForm">
                 <div class="field">
-                  <textarea placeholder="活动内容" disabled>${acontent}</textarea>
+                  <textarea wrap="hard" placeholder="活动内容" disabled>${acontent}</textarea>
                 </div>
                 <div class="ui error message"></div>
               </div>
