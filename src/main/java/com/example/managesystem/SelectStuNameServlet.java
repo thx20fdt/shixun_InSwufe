@@ -65,10 +65,16 @@ public class SelectStuNameServlet extends HttpServlet {
                 studentList.add(student);
             }
 
-            // 将studentList存储在request属性中，以便在JSP页面中使用
-            request.setAttribute("studentList", studentList);
-            request.setAttribute("cid", cid);
 
+            if (studentList.isEmpty()) {
+                String message = "本班中没有您所要查询的学生";
+                request.setAttribute("message", message);
+            }
+            else {
+
+                session.setAttribute("studentList", studentList);
+                session.setAttribute("cid", cid);
+            }
             // 转发到SelectStudent.jsp页面
             request.getRequestDispatcher("SelectStudent.jsp").forward(request, response);
         } catch (SQLException e) {

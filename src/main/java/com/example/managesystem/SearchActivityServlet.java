@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class SearchActivityServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String cid = request.getParameter("cid");
         String activityName = request.getParameter("activityName");
-
+        HttpSession session = request.getSession();
         // 在这里执行查询活动的操作，根据活动名称和班级ID进行数据库查询
         // 假设使用JDBC进行查询操作，具体实现方式可能会有所不同
 
@@ -57,13 +58,19 @@ public class SearchActivityServlet extends HttpServlet {
 
                 activityList.add(activity);
             }
-
+            if (activityList.isEmpty()) {
+                String message = "本班中没有您所要查询的活动";
+                request.setAttribute("message", message);
+            }
+            else {
             // 将查询结果存储到request的属性中
-            request.setAttribute("activityList", activityList);
-            request.setAttribute("cid", cid);
 
+            session.setAttribute("activityList", activityList);
+            session.setAttribute("cid", cid);
+            }
             // 转发到ManageActivity.jsp页面
             request.getRequestDispatcher("ManageActivity.jsp").forward(request, response);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
