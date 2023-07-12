@@ -9,8 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +36,7 @@ public class ReleaseActivityServlet extends HttpServlet {
         boolean groupable = Boolean.parseBoolean(request.getParameter("groupable"));
         String activityStartTime = request.getParameter("activityStartTime");
         String activityDeadline = request.getParameter("activityDeadline");
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         if (activityName.isEmpty() || activityContent.isEmpty()) {
             // 活动名称和活动内容不能为空
@@ -46,12 +50,19 @@ public class ReleaseActivityServlet extends HttpServlet {
             response.getWriter().println("活动开始时间和活动结束时间不能为空");
             return;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime startDateTime = LocalDateTime.parse(activityStartTime, formatter);
-        LocalDateTime endDateTime = LocalDateTime.parse(activityDeadline, formatter);
 
-        if (startDateTime.isBefore(currentDateTime) || endDateTime.isBefore(currentDateTime)) {
+        Date startDateTime = null;
+        Date endDateTime = null;
+        Date now = new Date();
+        try {
+            startDateTime = sdf.parse(activityStartTime);
+            endDateTime = sdf.parse(activityDeadline);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        if (now.compareTo(startDateTime) > 0 || now.compareTo(endDateTime) > 0) {
             response.getWriter().println("活动开始时间和截止时间不能早于当前时间");
             return;
         }
