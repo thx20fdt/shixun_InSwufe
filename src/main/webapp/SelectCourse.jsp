@@ -1,12 +1,11 @@
-<%@ page import="com.example.managesystem.course.course" %>
 <%--
   Created by IntelliJ IDEA.
   User: FX506H
-  Date: 2023/7/7
-  Time: 17:27
+  Date: 2023/7/12
+  Time: 15:17
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,28 +74,36 @@
             <div class="thirteen wide column">
                 <div class="ui top attached segment">
                     <div class="ui middle aligned four column grid">
-                        <div class="six wide column">
-                            <h3 class="ui black header">${course.CNAME}</h3>
+                        <div class="column">
+                            <h3 class="ui black header">课程列表</h3>
                         </div>
                     </div>
                 </div>
                 <div class="ui attached segment">
                     <div class="ui grid">
-                        <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
-                            <h4 class="ui dividing header">教师：${course.TNAME}  ${course.CLASSTIME}</h4>
+                        <div class="six wide column">
+                            <form action="SearchClassByCNAMEServlet" class="ui form" method="post">
+                                <div class="ui action input">
+                                    <input type="text" placeholder="按课程名称搜索添加课程" name="CNAME">
+                                    <button class="ui blue button" type="submit">
+                                        <i class="search icon"></i>
+                                        搜索
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="six wide column" style="margin-left: 100px; margin-right: 20px;">
+                            <form action="SearchClassByTNAME" class="ui form" method="post">
+                                <div class="ui action input">
+                                    <input type="text" placeholder="按任课教师搜索添加课程" name="TNAME">
+                                    <button class="ui blue button" type="submit">
+                                        <i class="search icon"></i>
+                                        搜索
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="ui list">
-                        <c:forEach var="activity" items="${acs}">
-                        <div class="item" onclick="goTask('YourServletURL')" onkeydown="if(event.keyCode == 13){goTask('YourServletURL');}">
-                            <div class="content">
-                                <a href="PrepareActivityServlet?AID=${activity.AID}&ANAME=${activity.ANAME}" class="header" >${activity.ANAME}</a>
-                            </div>
-                        </div>
-                            </c:forEach>
-                        <!-- 更多作业 -->
-                    </div>
-                    <!-- 更多课程 -->
                 </div>
             </div>
             <!-- 这是右边部分结束  -->
@@ -117,14 +124,9 @@
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 <script>
-    function goTask(url) {
-        window.location.href = url;
-    }
-</script>
-<script>
     $(document).ready(function() {
         $('.ui.dropdown').dropdown();
     });
 </script>
-
 </html>
+

@@ -23,7 +23,14 @@
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
       <a href="MyCourse" class="item"><i class="home icon"></i>首页</a>
-      <a href="MyCourseInfoServlet" class="item"><i class="users icon"></i>我的课程</a>
+      <div class="ui dropdown item">
+        <i class="users icon"></i>我的课程
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="MyCourseInfoServlet">课程列表</a>
+          <a class="item" href="SelectCourse.jsp">选择课程</a>
+        </div>
+      </div>
       <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>我的成绩</a>
       <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
@@ -123,4 +130,11 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('.ui.dropdown').dropdown();
+  });
+</script>
+
 </html>
