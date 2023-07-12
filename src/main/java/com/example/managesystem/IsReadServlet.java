@@ -32,7 +32,7 @@ public class IsReadServlet extends HttpServlet {
                 if(rs.getString(1).equals("已批阅")){
                     Statement stmt = con.createStatement();
                     ResultSet rs1 = stmt.executeQuery(sql1); //执行查询
-                    if (rs.next()){
+                    if (rs1.next()){
                         submit.setAID(rs1.getString("AID"));
                         submit.setANAME(rs1.getString("ANAME"));
                         submit.setSID(rs1.getString("SID"));
@@ -41,7 +41,7 @@ public class IsReadServlet extends HttpServlet {
                         submit.setACONTENT(rs1.getString("ACONTENT"));
                         submit.setSCORE(rs1.getDouble("SCORE"));
                         submit.setCONDITION(rs1.getString("CONDITION"));
-                        if(rs1.getString("GID").isEmpty()){
+                        if(rs1.getString("GID")==null){
                             submit.setGID("未分组");
 
                         }else{
