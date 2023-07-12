@@ -101,7 +101,7 @@
                                     <td>${group.GID}</td>
                                     <td>
                                         <c:forEach var="member" items="${group.MEMBERS}" varStatus="memberStatus">
-                                            ${member}<c:if test="${not memberStatus.last}">, </c:if>
+                                            ${member}<c:if test="${not memberStatus.last}"> </c:if>
                                         </c:forEach>
                                     </td>
                                     <td>

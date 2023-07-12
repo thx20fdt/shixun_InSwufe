@@ -41,7 +41,22 @@
           </div>
         </div>
       </div>
-      <!-- 这是右边的列表-->
+
+      <!--提示框弹出 -->
+      <div class="ui small modal" id="alertModal">
+        <div class="header">
+          提示
+        </div>
+        <div class="content" id="alertContent">
+        </div>
+        <div class="actions">
+          <div class="ui positive right labeled icon button" id="confirmButton">
+            确定
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+
       <!-- 这是右边的列表-->
       <div class="thirteen wide column">
         <div class="ui top attached segment">
@@ -52,7 +67,7 @@
           </div>
         </div>
         <div class="ui attached segment">
-          <form action="ReleaseActivityServlet" method="post" class="ui form">
+          <form class="ui form" id="activityForm">
             <div class="field">
               <label>活动名称</label>
               <input type="text" name="activityName" placeholder="输入活动名称" required>
@@ -93,7 +108,7 @@
               </div>
             </div>
             <input type="hidden" name="cid" value="<%= request.getSession().getAttribute("cid") %>">
-            <button class="ui blue button" type="submit">发布活动</button>
+            <button class="ui blue button" type="submit" id="submitButton">发布活动</button>
           </form>
         </div>
       </div>
@@ -117,6 +132,60 @@
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui-calendar/dist/calendar.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#submitButton').click(function(event) {
+      event.preventDefault(); // 阻止表单默认的提交行为
+
+      var activityName = $('input[name="activityName"]').val();
+      var activityContent = $('textarea[name="activityContent"]').val();
+      var activityStartTime = $('input[name="activityStartTime"]').val();
+      var activityDeadline = $('input[name="activityDeadline"]').val();
+      var groupable = $('input[name="groupable"]:checked').val();
+      var cid = $('input[name="cid"]').val();
+
+      if (activityName === '' || activityContent === '' || activityStartTime === '' || activityDeadline === '') {
+        // 如果输入框中有任何内容为空，弹出提示框
+        $('#alertContent').text('请输入完整的活动信息！');
+        $('#alertModal').modal('show');
+      } else {
+        // 构造表单数据对象
+        var formData = {
+          activityName: activityName,
+          activityContent: activityContent,
+          activityStartTime: activityStartTime,
+          activityDeadline: activityDeadline,
+          groupable: groupable,
+          cid: cid
+        };
+
+        // 使用 AJAX 异步提交表单数据到Servlet
+        $.post('ReleaseActivityServlet', formData)
+                .done(function(data) {
+                  // 根据Servlet返回的消息进行处理
+                  if (data.indexOf('成功') !== -1) {
+                    // 活动发布成功
+                    $('#alertContent').text(data);
+                    $('#alertModal').modal('show');
+
+                    // 点击确定按钮后跳转到ManageActivityServlet
+                    $('#confirmButton').click(function() {
+                      window.location.href = 'ManageActivityServlet?CID=<%= session.getAttribute("cid") %>';
+                    });
+                  } else {
+                    // 活动发布失败或其他错误
+                    $('#alertContent').text(data);
+                    $('#alertModal').modal('show');
+                  }
+                });
+      }
+    });
+  });
+
+
+</script>
+
 <script>
   $('#startDatetimePicker').calendar({
     type: 'datetime',
