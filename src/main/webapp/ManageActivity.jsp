@@ -71,6 +71,7 @@
               </div>
             </div>
           </div>
+
           <c:choose>
             <c:when test="${empty activityList}">
               <div class="ui message" style="margin-top: 20px;">
@@ -80,7 +81,17 @@
                 <p style="font-family: 'Verdana'; font-size: 16px; color: cornflowerblue; font-weight: bold;">您还未在本班发布活动！可以点击添加新活动按钮添加活动</p>
               </div>
             </c:when>
+            <%-- 判断并显示提示信息 --%>
+            <c:when test="${not empty message}">
+              <div class="ui message" style="margin-top: 20px;">
+                <div class="header">
+                  提示信息
+                </div>
+                <p style="font-family: 'Verdana'; font-size: 16px; color: cornflowerblue; font-weight: bold;">本班中没有您所要查询的活动</p>
+              </div>
+            </c:when>
             <c:otherwise>
+
               <table class="ui celled table">
                 <thead>
                 <tr>

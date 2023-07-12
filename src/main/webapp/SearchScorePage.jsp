@@ -70,6 +70,7 @@
             </div>
           </div>
         </div>
+        <div class="ui attached segment">
         <div class="six wide column">
           <form action="SearchScoreServlet" class="ui form" method="post">
             <div class="ui action input">
@@ -104,6 +105,7 @@
           <!-- 更多课程 -->
           </tbody>
         </table>
+      </div>
       </div>
     </div>
     <!-- 这是右边部分结束  -->

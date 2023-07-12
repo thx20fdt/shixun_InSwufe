@@ -78,6 +78,24 @@
               </div>
             </div>
           </div>
+        <c:choose>
+          <c:when test="${empty studentList}">
+            <div class="ui message" style="margin-top: 20px;">
+              <div class="header">
+                提示信息
+              </div>
+              <p style="font-family: 'Verdana'; font-size: 16px; color: cornflowerblue; font-weight: bold;">本班还没有学生，点击添加学生可增添学生</p>
+            </div>
+          </c:when>
+          <c:when test="${not empty message}">
+            <div class="ui message" style="margin-top: 20px;">
+              <div class="header">
+                提示信息
+              </div>
+              <p style="font-family: 'Verdana'; font-size: 16px; color: cornflowerblue; font-weight: bold;">本班中没有您所要查询的学生</p>
+            </div>
+          </c:when>
+          <c:otherwise>
           <table class="ui celled table">
             <thead>
             <tr>
@@ -100,7 +118,8 @@
             </c:forEach>
             </tbody>
           </table>
-
+          </c:otherwise>
+        </c:choose>
         </div>
       </div>
       <!-- 这是右边部分结束  -->
