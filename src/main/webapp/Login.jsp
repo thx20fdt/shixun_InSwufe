@@ -7,6 +7,13 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>欢迎使用课程管理系统</title>
+  <script>
+    <%-- 判断是否有提示消息 --%>
+    <% if (request.getAttribute("msg") != null) { %>
+    // 使用JavaScript的alert函数来弹出提示消息
+    alert("<%= request.getAttribute("msg") %>");
+    <% } %>
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
   <style>
     body {
@@ -101,4 +108,5 @@
     }
   })
 </script>
+
 </html>
