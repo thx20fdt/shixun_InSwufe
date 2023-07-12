@@ -22,15 +22,15 @@ public class DeleteStuFromGroupServlet extends HttpServlet {
 
         // 检查学生是否在该组中
         if (!isStudentInGroup(memberId, GID)) {
-            response.getWriter().println("该学生未在此组中");
+            response.getWriter().write("该学生未在此组中");
             return;
         }
 
         // 在stu_group表中删除对应的行数据
         if (removeStudentFromGroup(memberId, GID)) {
-            response.getWriter().println("成功将学生从该组中移出");
+            response.getWriter().write("成功将学生从该组中移出");
         } else {
-            response.getWriter().println("删除学生失败");
+            response.getWriter().write("删除学生失败");
         }
     }
 

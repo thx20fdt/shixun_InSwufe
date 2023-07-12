@@ -360,7 +360,7 @@ public class CreateGroupServlet extends HttpServlet {
             resultSet = statement.executeQuery();
 
             int maxGroupIdSuffix = 0;
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 String groupId = resultSet.getString("GID");
                 String[] parts = groupId.split("_");
                 if (parts.length > 1) {
@@ -370,13 +370,29 @@ public class CreateGroupServlet extends HttpServlet {
                         maxGroupIdSuffix = groupIdSuffix;
                     }
                 }
+                while (resultSet.next()) {
+                    groupId = resultSet.getString("GID");
+                    parts = groupId.split("_");
+                    if (parts.length > 1) {
+                        String suffix = parts[2];
+                        int groupIdSuffix = Integer.parseInt(suffix);
+                        if (groupIdSuffix > maxGroupIdSuffix) {
+                            maxGroupIdSuffix = groupIdSuffix;
+                        }
+                    }
+                }
+                // 生成新的小组ID
+                int newGroupIdSuffix = maxGroupIdSuffix + 1;
+                String newGroupId = activityId + "_" + newGroupIdSuffix;
+
+                return newGroupId;
             }
 
-            // 生成新的小组ID
-            int newGroupIdSuffix = maxGroupIdSuffix + 1;
-            String newGroupId = activityId + "_" + newGroupIdSuffix;
+            else {
+                String newGroupId = activityId + "_" + 1;
 
-            return newGroupId;
+                return newGroupId;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
