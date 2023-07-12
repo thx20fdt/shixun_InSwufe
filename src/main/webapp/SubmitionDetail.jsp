@@ -69,7 +69,7 @@
           <div class="ui form reply" id="gradeForm">
             <div class="field">
               <textarea placeholder="学生的作答" disabled>${submition.CONTENT}</textarea>
-              <a href="DownloadFile?AID=${sessionScope.submit.AID}&SID=${sessionScope.submit.SID}" class="ui button">
+              <a href="DownloadFile?AID=${AID}&SID=${SID}" class="ui button">
                 下载学生文件
               </a>
             </div>
