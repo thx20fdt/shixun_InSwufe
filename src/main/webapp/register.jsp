@@ -80,11 +80,11 @@
                         <div class="ui column">
                             <div class="ui left icon input">
                                 <i class="check icon"></i>
-                                <input type="text" name="checkcode" class="tooltip" placeholder="验证码" data-content="请填写验证码">
+
                             </div>
                         </div>
                         <div class="ui column">
-                            <img id="captchaImage" src="captcha" alt="验证码" onclick="changeCaptcha()">
+<%--                            <img id="captchaImage" src="captcha" alt="验证码" onclick="changeCaptcha()">--%>
                         </div>
                     </div>
                 </div>
