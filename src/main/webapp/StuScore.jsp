@@ -74,6 +74,7 @@
                             </form>
 
                         </div>
+
                         <div class="eight wide column">
                             <form class="ui form" action="SearchSubmitionByAID" method="post">
                                 <div class="fields">
@@ -89,6 +90,12 @@
                                 </div>
                             </form>
 
+                        </div>
+                        <div class="thirteen wide column">
+                            <button id="exportButton" class="ui green button">
+                                <i class="download icon"></i>
+                                导出文件
+                            </button>
                         </div>
                     </div>
                     <div class="ui grid">
@@ -135,5 +142,31 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
+<script>
+    function exportTableToCSV() {
+        var data = [];
+        var rows = document.querySelectorAll("table tr");
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+            for (var j = 0; j < cols.length; j++) {
+                row.push(cols[j].innerText);
+            }
+            data.push(row.join(","));
+        }
+
+        var csvContent = data.join("\n");
+        var downloadLink = document.createElement('a');
+        downloadLink.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+        downloadLink.download = 'data.csv';
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
+    // Add a event listener to a button/link or any other HTML element to call the function
+    document.getElementById('exportButton').addEventListener('click', exportTableToCSV);
+</script>
 </html>
 
