@@ -40,7 +40,13 @@ public class ShowActivityDetailServlet extends HttpServlet {
                 submit.setANAME(rs.getString(2));
                 submit.setSID(rs.getString(3));
                 submit.setSNAME(rs.getString(4));
-                submit.setGID(rs.getString(5));
+
+                if (rs.getString(5)==null){
+                    submit.setGID("未分组");
+                }else{
+                    submit.setGID(rs.getString(5));
+                }
+
                 submit.setCONTENT(rs.getString(6));
                 submit.setCONDITION(rs.getString(7));
                 submitList.add(submit);
