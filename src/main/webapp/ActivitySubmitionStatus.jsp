@@ -56,14 +56,21 @@
         <div class="ui attached segment">
           <div class="ui middle aligned four column grid">
             <div class="ten wide column">
-              <div class="card-container">
-                <div class="content card-content">
-                  <h4 class="ui black header">活动主题</h4>
-                  <div class="description">
-                    活动内容：${acontent}
-                  </div>
+              <h4 class="ui black header">活动内容</h4>
+              <div class="ui form reply" id="gradeForm">
+                <div class="field">
+                  <textarea placeholder="活动内容" disabled>${acontent}</textarea>
                 </div>
+                <div class="ui error message"></div>
               </div>
+<%--              <div class="card-container">--%>
+<%--                <div class="content card-content">--%>
+<%--                  <h4 class="ui black header">活动主题</h4>--%>
+<%--                  <div class="description">--%>
+<%--                    活动内容：${acontent}--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
             </div>
             <div class="right aligned column">
               <div class="ui label">
