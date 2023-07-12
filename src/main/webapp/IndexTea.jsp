@@ -15,8 +15,38 @@
   <title>首页</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <link rel="stylesheet" href="me.css">
+  <style>
+    #mobile-menu-button {
+      display: none !important; /* 默认隐藏 */
+    }
+
+    @media screen and (max-width: 768px) {
+
+      #mobile-menu-button {
+        display: block !important; /* 在小屏幕设备上显示 */
+      }
+    }
+  </style>
 </head>
 <body>
+<button class="ui button" id="mobile-menu-button">
+  <i class="sidebar icon"></i>
+</button>
+
+<div class="ui sidebar inverted vertical menu" id="mobile-menu">
+  <h2 class="ui teal header item">T4_课程管理系统</h2>
+  <a href="CourseToughtByMe" class="item"><i class="home icon"></i>首页</a>
+  <a href="ClassManageServlet" class="item"><i class="keyboard icon"></i>管理班级</a>
+  <a href="StuScore" class="item"><i class="clipboard icon"></i>学生成绩</a>
+  <a href="PersonalInfoForTeaServlet" class="item"><i class="id card icon"></i>个人信息</a>
+  <div class="right item">
+    <div class="ui left icon inverted input">
+      <input type="text" placeholder="搜索……">
+      <i class="search link icon"></i>
+    </div>
+  </div>
+</div>
+
 <jsp:include page="Tea.jsp" />
 
 <!--mid content-->
@@ -92,4 +122,15 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
+
+<script>
+
+  $(document).ready(function() {
+    $('#mobile-menu-button').click(function() {
+      $('#mobile-menu').sidebar('toggle');
+    });
+  });
+</script>
+
 </html>

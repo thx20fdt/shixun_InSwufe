@@ -1,3 +1,4 @@
+<%@ page import="com.example.managesystem.activity.activity" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -96,6 +97,7 @@
                 <thead>
                 <tr>
                   <th class="six wide">活动名称</th>
+                  <th class="six wide">状态</th>
                   <th class="six wide">操作</th>
                 </tr>
                 </thead>
@@ -103,8 +105,17 @@
                 <c:forEach var="activity" items="${sessionScope.activityList}">
                   <tr>
                     <td>${activity.ANAME}</td>
+                    <td>${activity.STATUS}</td>
                     <td>
-                      <button class="ui blue button" onclick="location.href='GroupViewServlet?AID=${activity.AID}'">查看分组</button>
+                      <c:choose>
+                        <c:when test="${activity.type==true}">
+                          <button class="ui blue button" onclick="location.href='GroupViewServlet?AID=${activity.AID}'">查看分组</button>
+                        </c:when>
+                        <c:otherwise>
+                          该活动不可分组
+                        </c:otherwise>
+                      </c:choose>
+
                       <button class="ui red button" onclick="deleteActivity('${activity.AID}')">删除活动</button>
                     </td>
                   </tr>

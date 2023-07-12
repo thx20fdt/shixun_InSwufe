@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +33,8 @@ public class ManageActivityServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("cid",cid);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         // 在这里执行查询活动信息的操作，根据班级ID进行数据库查询
         // 假设使用JDBC进行查询操作，具体实现方式可能会有所不同
 
@@ -43,7 +48,7 @@ public class ManageActivityServlet extends HttpServlet {
             connection = DBUtil.getConnection();
 
             // 准备SQL语句
-            String sql = "SELECT ANAME,AID FROM Activity WHERE CID = ?";
+            String sql = "SELECT ANAME,AID,BEGINTIME,ENDTIME,TYPE FROM Activity WHERE CID = ?";
 
             statement = connection.prepareStatement(sql);
 
@@ -62,6 +67,25 @@ public class ManageActivityServlet extends HttpServlet {
                 activity activity = new activity();
                 activity.setANAME(resultSet.getString("ANAME"));
                 activity.setAID(resultSet.getString("AID"));
+
+                String BEGIN = resultSet.getString("BEGINTIME");
+                String END = resultSet.getString("ENDTIME");
+
+                Date BEGINDATE = sdf.parse(BEGIN);
+                Date ENDDATE = sdf.parse(END);
+                Date now = new Date();
+                if(now.compareTo(BEGINDATE)<0){
+                    activity.setSTATUS("未开始");
+
+                } else if (now.compareTo(ENDDATE)>0) {
+                    activity.setSTATUS("已结束");
+
+                }else{
+                    activity.setSTATUS("进行中");
+                }
+
+                activity.setType(resultSet.getBoolean("TYPE"));
+
                 activityList.add(activity);
 
             }
@@ -73,6 +97,8 @@ public class ManageActivityServlet extends HttpServlet {
             request.getRequestDispatcher("ManageActivity.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         } finally {
             // 关闭连接、Statement和ResultSet对象
             DBUtil.closeResultSet(resultSet);
@@ -86,7 +112,7 @@ public class ManageActivityServlet extends HttpServlet {
         // 获取传递的班级ID（CID）
         String cid = (String)request.getSession().getAttribute("cid");
 
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         // 在这里执行查询活动信息的操作，根据班级ID进行数据库查询
         // 假设使用JDBC进行查询操作，具体实现方式可能会有所不同
 
@@ -100,7 +126,7 @@ public class ManageActivityServlet extends HttpServlet {
             connection = DBUtil.getConnection();
 
             // 准备SQL语句
-            String sql = "SELECT ANAME,AID FROM Activity WHERE CID = ?";
+            String sql = "SELECT ANAME,AID,BEGINTIME,ENDTIME,TYPE FROM Activity WHERE CID = ?";
 
             statement = connection.prepareStatement(sql);
 
@@ -119,6 +145,23 @@ public class ManageActivityServlet extends HttpServlet {
                 activity activity = new activity();
                 activity.setANAME(resultSet.getString("ANAME"));
                 activity.setAID(resultSet.getString("AID"));
+
+                String BEGIN = resultSet.getString("BEGINTIME");
+                String END = resultSet.getString("ENDTIME");
+                Date BEGINDATE = sdf.parse(BEGIN);
+                Date ENDDATE = sdf.parse(END);
+                Date now = new Date();
+                if(now.compareTo(BEGINDATE)<0){
+                    activity.setSTATUS("未开始");
+
+                } else if (now.compareTo(ENDDATE)>0) {
+                    activity.setSTATUS("已结束");
+
+                }else{
+                    activity.setSTATUS("进行中");
+                }
+
+                activity.setType(resultSet.getBoolean("TYPE"));
                 activityList.add(activity);
 
             }
@@ -131,6 +174,8 @@ public class ManageActivityServlet extends HttpServlet {
             request.getRequestDispatcher("ManageActivity.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         } finally {
             // 关闭连接、Statement和ResultSet对象
             DBUtil.closeResultSet(resultSet);

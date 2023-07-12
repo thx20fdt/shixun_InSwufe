@@ -12,6 +12,27 @@ public class activity {
     public String BEGINTIME;
     public String ENDTIME;
 
+    public String STATUS;
+
+    public boolean type;
+
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
+
+    public boolean getType() {
+        return type;
+    }
+
+    public String getSTATUS() {
+        return STATUS;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
     public String getCID() {
         return CID;
     }

@@ -88,12 +88,35 @@
                     </div>
                     <div class="ui list">
                         <c:forEach var="activity" items="${acs}">
-                        <div class="item" onclick="goTask('YourServletURL')" onkeydown="if(event.keyCode == 13){goTask('YourServletURL');}">
-                            <div class="content">
-                                <a href="PrepareActivityServlet?AID=${activity.AID}&ANAME=${activity.ANAME}" class="header" >${activity.ANAME}</a>
+                            <div class="ui items">
+                                <div class="item" onclick="goTask('YourServletURL')" onkeydown="if(event.keyCode == 13){goTask('YourServletURL');}">
+                                    <div class="content">
+                                        <a href="PrepareActivityServlet?AID=${activity.AID}&ANAME=${activity.ANAME}" class="header" style="color: black;">${activity.ANAME}</a>
+                                        <div class="ui small feed">
+                                            <div class="event">
+                                                <div class="content">
+                                                    <div class="summary">
+                                                        <i class="clock outline icon"></i>
+                                                        <span id="deadline-${activity.AID}" style="color: grey;">截止日期: ${activity.ENDTIME}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                            </c:forEach>
+                            <script>
+                                //获取活动的截止日期
+                                var endTime = new Date("${activity.ENDTIME}");
+                                //获取当前日期
+                                var now = new Date();
+                                //比较日期
+                                if(endTime < now) {
+                                    document.getElementById("deadline-${activity.AID}").innerHTML = "已截止";
+                                    document.getElementById("deadline-${activity.AID}").style.color = "red";
+                                }
+                            </script>
+                        </c:forEach>
                         <!-- 更多作业 -->
                     </div>
                     <!-- 更多课程 -->

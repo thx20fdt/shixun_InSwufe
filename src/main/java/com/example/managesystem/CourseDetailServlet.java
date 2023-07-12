@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "CourseDetail", value = "/CourseDetail")
@@ -56,6 +57,7 @@ public class CourseDetailServlet extends HttpServlet {
             }
             rs1.close();
             stmt.close();
+            Collections.reverse(acs);
             request.setAttribute("acs",acs);
             request.getRequestDispatcher("CourseInfo.jsp").forward(request,response);
         } catch (SQLException e) {
@@ -95,6 +97,7 @@ public class CourseDetailServlet extends HttpServlet {
             }
             rs1.close();
             stmt.close();
+            Collections.reverse(acs);
             request.setAttribute("acs",acs);
             request.getRequestDispatcher("CourseInfo.jsp").forward(request,response);
         } catch (SQLException e) {

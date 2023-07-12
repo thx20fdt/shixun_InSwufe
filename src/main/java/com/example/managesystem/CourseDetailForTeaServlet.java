@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "CourseDetailForTea", value = "/CourseDetailForTea")
@@ -49,6 +50,7 @@ public class CourseDetailForTeaServlet extends HttpServlet {
                 a.setENDTIME(rs1.getDate(5).toString());
                 acs.add(a);
             }
+            Collections.reverse(acs);
             rs1.close();
             stmt.close();
             request.setAttribute("acs",acs);

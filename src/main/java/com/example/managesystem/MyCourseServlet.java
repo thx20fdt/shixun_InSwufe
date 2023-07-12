@@ -41,6 +41,8 @@ public class MyCourseServlet extends HttpServlet {
             throw new RuntimeException(e);
         }//加载驱动并建立数据库连接
 
+
+
         req.setAttribute("courses", courses);
         // 转发请求到网页主界面
         req.getRequestDispatcher("IndexStu.jsp").forward(req, resp);
