@@ -43,9 +43,8 @@ public class UpdateScoreServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        request.setAttribute("AID",AID);
-        request.setAttribute("SID",SID);
-        request.getRequestDispatcher("/SubmitionDetail").forward(request,response);
+
+        response.sendRedirect("IsRead?AID="+AID+"&SID="+SID);
         
     }
 }
