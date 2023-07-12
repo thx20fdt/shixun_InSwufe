@@ -22,7 +22,10 @@
     <div class="ui inverted secondary menu">
       <h2 class="ui teal header item">T4_课程管理系统</h2>
       <a href="MyCourse" class="item"><i class="home icon"></i>首页</a>
-      <a href="MyCourseInfoServlet" class="item"><i class="users icon"></i>我的课程</a>
+      <div class="menu">
+        <a class="item" href="MyCourseInfoServlet">课程列表</a>
+        <a class="item" href="SelectCourse.jsp">选择课程</a>
+      </div>
       <a href="MyScoreServlet" class="item"><i class="clipboard icon"></i>查看成绩</a>
       <a href="PersonalInfoServlet" class="item"><i class="id card icon"></i>个人信息</a>
       <div class="right item">
@@ -74,28 +77,6 @@
         </div>
         <div class="ui attached segment">
           <div class="ui grid">
-            <div class="six wide column">
-              <form action="SearchClassByCNAMEServlet" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="按课程名称搜索添加课程" name="CNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    搜索
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div class="six wide column" style="margin-left: 100px; margin-right: 20px;">
-              <form action="SearchClassByTNAME" class="ui form" method="post">
-                <div class="ui action input">
-                  <input type="text" placeholder="按任课教师搜索添加课程" name="TNAME">
-                  <button class="ui blue button" type="submit">
-                    <i class="search icon"></i>
-                    搜索
-                  </button>
-                </div>
-              </form>
-            </div>
           </div>
           <div class="ui grid">
             <div class="column" style="padding-top: 20px; padding-bottom: 20px;">
@@ -140,4 +121,10 @@
 </body>
 <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.ui.dropdown').dropdown();
+  });
+</script>
 </html>
+
