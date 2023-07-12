@@ -58,63 +58,9 @@ public class RegisterServlet extends HttpServlet {
             }else{
                 registerTeacher(ID,NAME,PHONE,PASSWORD,conn);
             }
+
         }
-//        if(type.equals("student")){
-//            try {
-//                Connection conn = DBUtil.getConnection();
-//                String sql0 = "select * from Student where SID = "+"'"+ID+"'";
-//                String sql1 = "select * from Student where PHONE = "+"'"+PHONE+"'";
-//                Statement sm = conn.createStatement();
-//                ResultSet rs = sm.executeQuery(sql0);
-//                ResultSet rs1 = sm.executeQuery(sql1);
-//                if(rs.next()||rs1.next()){
-//                    try {
-//                        req.setAttribute("msg","该学号、职工号或者手机号已被使用");
-//                        req.getRequestDispatcher("register.jsp").forward(req, resp);
-//                    } catch (ServletException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }else{
-//                    String sql2 = "INSERT INTO Student (SID,NAME, PHONE,PASSWORD) VALUES("+"'"+ID+"'"+","+"'"+NAME+"'"+","+"'"+PHONE+"'"+","+"'"+PASSWORD+"'"+")";
-//                    sm.executeUpdate(sql2);
-//                    conn.close();
-//                    System.out.println("OK");
-//                }
-//
-//            } catch ( SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        else{
-//            try {
-//                Connection conn = DBUtil.getConnection();
-//                String sql0 = "select * from Teacher where TID = "+"'"+ID+"'";
-//                String sql1 = "select * from Teacher where PHONE = "+"'"+PHONE+"'";
-//                Statement sm = conn.createStatement();
-//                ResultSet rs = sm.executeQuery(sql0);
-//                ResultSet rs1 = sm.executeQuery(sql1);
-//                if(rs.next()|| rs1.next()){
-//                    resp.sendRedirect("register.jsp");
-//                }else{
-//                    String sql2 = "INSERT INTO Teacher (TID,NAME, PHONE,PASSWORD) VALUES("+"'"+ID+"'"+","+"'"+NAME+"'"+","+"'"+PHONE+"'"+","+"'"+PASSWORD+"'"+")";
-//                    Statement statement = conn.createStatement();
-//                    statement.executeUpdate(sql2);
-//                }
-//
-//
-////                String sql1 = "INSERT INTO Teacher (TID,NAME, PHONE,PASSWORD) VALUES(? , ? , ? , ?)";
-////                PreparedStatement ps = conn.prepareStatement(sql1);
-////                ps.setString(1,ID);
-////                ps.setString(2,NAME);
-////                ps.setString(3,PHONE);
-////                ps.setString(4,PASSWORD);
-////                ps.executeUpdate();
-//                conn.close();
-//                System.out.println("OK");
-//            } catch ( SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        resp.sendRedirect("Login.jsp");
     }
 
     private boolean isExistingStudent(String id, String phone, Connection conn) {
