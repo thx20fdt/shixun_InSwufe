@@ -110,7 +110,7 @@
   <div class="content" id="alertContent">
   </div>
   <div class="actions">
-    <div class="ui positive right labeled icon button">
+    <div class="ui positive right labeled icon button" id="confirmButton">
       确定
       <i class="checkmark icon"></i>
     </div>
@@ -145,6 +145,9 @@
                 if (data.success) {
                   // 创建成功，显示成功提示框
                   $('#alertContent').text(data.message);
+                  $('#confirmButton').click(function() {
+                    window.location.href = 'MyGroupServlet';
+                  });
                 } else {
                   // 创建失败，显示失败提示框
                   $('#alertContent').text(data.message);
