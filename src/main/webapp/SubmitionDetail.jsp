@@ -76,7 +76,7 @@
             <form action="UpdateScore" method="post">
               <div class="field">
                 <label>成绩</label>
-                <input type="text" placeholder="输入学生的成绩" id="gradeInput" name="score">
+                <input type="number" placeholder="输入学生的成绩" id="gradeInput" name="score">
                 <input type="hidden" name="AID" value="${submition.AID}">
                 <input type="hidden" name="SID" value="${submition.SID}">
               </div>
