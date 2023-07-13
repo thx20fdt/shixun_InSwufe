@@ -58,7 +58,7 @@
           <i class="users icon"></i>我的课程
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item" href="MyCourseListServlet">课程列表</a>
+            <a class="item" href="MyCourseInfoServlet">课程列表</a>
             <a class="item" href="SelectCourseServlet">选择课程</a>
           </div>
         </div>
